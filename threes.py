@@ -5,6 +5,8 @@ def board(self):
 	 self.x_size = 4
 	 self.y_size = 4
 
+	 self.square = 1
+
 
 
 if __name__ == "__main__":
