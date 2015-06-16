@@ -1,7 +1,3 @@
-def main():
-	my_board = Board(4,4)
-	my_board.display()
-
 
 class Board(object):
 
@@ -15,6 +11,11 @@ class Board(object):
 
 	def display(self):
 		print self.cols,
+
+
+def main():
+	my_board = Board(4,4)
+	my_board.display()
 
 
 if __name__ == "__main__":
