@@ -1,5 +1,6 @@
 def main():
 	my_board = Board(4,4)
+	my_board.set_card(1,1,3)
 	my_board.display()
 
 
@@ -14,7 +15,11 @@ class Board(object):
 		 self.cols = [self.rows for x in range(0,y_size)]
 
 	def display(self):
-		print self.cols,
+		for row in self.cols: print row
+
+	def set_card(self, x, y, value):
+		self.cols[x][y] = value
+
 
 
 if __name__ == "__main__":
