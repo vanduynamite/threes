@@ -1,8 +1,11 @@
+<<<<<<< HEAD
 def main():
 	my_board = Board(4,4)
 	my_board.set_card(1,1,3)
 	my_board.display()
 
+=======
+>>>>>>> f60b65355af538e94f6f5ec3f200529b71d27471
 
 class Board(object):
 
@@ -20,6 +23,11 @@ class Board(object):
 	def set_card(self, x, y, value):
 		self.cols[x][y] = value
 
+
+
+def main():
+	my_board = Board(4,4)
+	my_board.display()
 
 
 if __name__ == "__main__":
