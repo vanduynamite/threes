@@ -1,12 +1,20 @@
 def main():
-	print "Hello Ryan!"
+	my_board = Board(4,4)
+	my_board.display()
 
-def board(self):
-	 self.x_size = 4
-	 self.y_size = 4
 
-	 self.square = 1
+class Board(object):
 
+
+	def __init__(self, x_size, y_size):
+		 self.x_size = 4
+		 self.y_size = 4
+
+		 self.rows = [0 for x in range (0,x_size)]
+		 self.cols = [self.rows for x in range(0,y_size)]
+
+	def display(self):
+		print self.cols,
 
 
 if __name__ == "__main__":
