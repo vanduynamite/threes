@@ -1,8 +1,9 @@
 def main():
-	print "Hello Ryan!!!"
+	print "Hello Ryan!"
 
 def board(self):
-
+	 self.x_size = 4
+	 self.y_size = 4
 
 
 
