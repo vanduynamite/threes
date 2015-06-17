@@ -1,3 +1,4 @@
+from nose.tools import *
 from threes import *
 from updateboard import *
 
