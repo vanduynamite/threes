@@ -1,5 +1,5 @@
 import random
-
+random.seed(0)
 class Board(object):
 
 
@@ -75,14 +75,19 @@ class Board(object):
         """
         is there a zero or a wall adjacent to the sliding direction?
         """
-        if row + 1 >= len(col)  or self.grid[row + 1][col] != 0 or 
+        if row + 1 >= len(self.grid) or col + 1 >= len(self.grid[0])  or (self.grid[row + 1][col] != 0 and self.grid[row + 1][col] != self.grid[row][col]):
+            print "row is ", row
+            print "col is ", col 
+            print "returned true"
+            print "len self.grid is ",len(self.grid[0])
+            return True
 
-        pass
 
     def combine_cards(self, stationary_card, moving_card):
         if stationary_card == moving_card:
             stationary_card += moving_card
-    def transform_board(self, board, direction):
+
+    def transform_board(self, board, swipe_direction):
         return board_transformed
         pass
 
@@ -102,11 +107,17 @@ class Board(object):
         return board_transformed_back
         pass
 
-class BoardTransformed(Board):
-class BoardTransformed0Degrees(Board):
-class BoardTransformed90Degrees(Board):
-class BoardTransformed180Degrees(Board):
-class BoardTransformed270Degrees(Board):
+#class BoardTransformed(Board):
+#    def __init__(self, x_size, y_size):
+#         self.x_size = 4
+#         self.y_size = 4
+#         self.size= x_size * y_size
+#
+#         self.grid = [[0 for i in range (0,y_size)] for j in range(0,x_size)]
+#class BoardTransformed0Degrees(Board):
+#class BoardTransformed90Degrees(Board):
+#class BoardTransformed180Degrees(Board):
+#class BoardTransformed270Degrees(Board):
 
 
 
@@ -115,6 +126,7 @@ def main():
         my_board = Board(4,4)
         my_board.new_random_board()
         my_board.display()
+        my_board.is_stationary(3,4)
 
 
 if __name__ == "__main__":
