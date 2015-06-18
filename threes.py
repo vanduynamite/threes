@@ -130,7 +130,9 @@ def squish_list(nums):
             return nums
 
         else:
-            return nums[0].extend(squish_list(nums[1:]))
+            nums = squish_list(nums[1:])
+            nums.insert(0,n)
+            return nums
 
     else:
         return nums
@@ -140,9 +142,9 @@ def main():
     #     my_board = Board(4,4)
     #     my_board.new_random_board()
     #     my_board.display()
-    nums = [1, 0, 2, 2]
-    nums.pop(0)
-    print len(nums)
+    nums = [2,3,3,0]
+    nums = squish_list(nums)
+    print nums
 
 
 if __name__ == "__main__":
