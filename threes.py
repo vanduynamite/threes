@@ -71,10 +71,11 @@ class Board(object):
         
         """
         pass
-    def is_stationary(self, 
+    def is_stationary(self):
         """
         is there a zero or a wall adjacent to the sliding direction?
         """
+
         pass
 
     def combine_cards(self, stationary_card, moving_card):
