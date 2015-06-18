@@ -1,3 +1,4 @@
+#import pdb <<<< this is the python debugger
 import random
 
 class Board(object):
@@ -13,7 +14,8 @@ class Board(object):
     def display(self):
         #print self.grid
         print "Current Board:"
-        for row in self.grid: print row
+        for row in self.grid: 
+            print row
 
     def get_card(self, x, y):
         return self.grid[x][y]
@@ -50,6 +52,7 @@ class Board(object):
 
             ### NEED TO ADD IN CONDITION IF THE LOCATION IS AT THE END OF THE MATRIX!!!
             #print "Rand int between 0 and %d is %d: (%d, %d)" %(self.size-nums_placed,location, x_loc, y_loc)
+#### you might try using math.floor from the math library it basically just rounds down 
 
             self.set_card(x_loc, y_loc, i)
 
@@ -58,12 +61,32 @@ class Board(object):
 
     def new_set_board(self):
         pass
+    
+    ### These will transform the board, prepping it for sliding then transforming it back when done.  
+#    def slide_board(self,direction):
+#        pass
+#        def transform_board(self,direction):
+#            pass
+#
+#            def arrays_to_matrix():
+#                pass
+#
+#            def rotate_left_90():
+#                pass
+#
+#            def rotate_right_90():
+#                pass
+#
+#            def rotate_180():
+#                pass
 
 
 def main():
     my_board = Board(4,4)
     my_board.new_random_board()
     my_board.display()
+#    pdb.set_trace()
+
 
 
 if __name__ == "__main__":
