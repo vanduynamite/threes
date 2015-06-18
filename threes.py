@@ -58,6 +58,7 @@ class Board(object):
 
 
     def new_set_board(self):
+        # if you want to define a board from the actual game
         pass
 
 
@@ -73,6 +74,7 @@ class Board(object):
         pass
     def is_stationary(self):
         """
+        Don't think we need this -PvD
         is there a zero or a wall adjacent to the sliding direction?
         """
 
@@ -96,15 +98,51 @@ class Board(object):
         def rotate_180():
             pass
 
-    def transform_board_back(():
+    def transform_board_back():
             pass
 
 
+def squish_list(nums):
+    # will always squish a list to the left
+
+    n = nums[0]
+
+    if n == 0:
+        # return everything in the list to the right followed by a 0
+        nums.pop(0)
+        nums.append(0)
+        return nums
+
+    elif len(nums) > 1:
+
+        m = nums[1]
+
+        if n + m == 3:
+            nums[0] = 3
+            nums.pop(1)
+            nums.append(0)
+            return nums
+
+        elif n == m:
+            nums[0] = nums[0] * 2
+            nums.pop(1)
+            nums.append(0)
+            return nums
+
+        else:
+            return nums[0].extend(squish_list(nums[1:]))
+
+    else:
+        return nums
+
 def main():
-    for i in range(0,1):
-        my_board = Board(4,4)
-        my_board.new_random_board()
-        my_board.display()
+    # for i in range(0,1):
+    #     my_board = Board(4,4)
+    #     my_board.new_random_board()
+    #     my_board.display()
+    nums = [1, 0, 2, 2]
+    nums.pop(0)
+    print len(nums)
 
 
 if __name__ == "__main__":
