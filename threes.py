@@ -71,17 +71,19 @@ class Board(object):
         
         """
         pass
-    def is_stationary(self):
+    def is_stationary(self, row, col):
         """
         is there a zero or a wall adjacent to the sliding direction?
         """
+        if row + 1 >= len(col)  or self.grid[row + 1][col] != 0 or 
 
         pass
 
     def combine_cards(self, stationary_card, moving_card):
         if stationary_card == moving_card:
             stationary_card += moving_card
-    def transform_board(self,direction):
+    def transform_board(self, board, direction):
+        return board_transformed
         pass
 
         def arrays_to_matrix():
@@ -96,8 +98,16 @@ class Board(object):
         def rotate_180():
             pass
 
-    def transform_board_back(():
-            pass
+    def transform_board_back():
+        return board_transformed_back
+        pass
+
+class BoardTransformed(Board):
+class BoardTransformed0Degrees(Board):
+class BoardTransformed90Degrees(Board):
+class BoardTransformed180Degrees(Board):
+class BoardTransformed270Degrees(Board):
+
 
 
 def main():
