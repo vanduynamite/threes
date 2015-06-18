@@ -1,3 +1,4 @@
+#import pdb <<<< this is the python debugger
 import random
 
 class Board(object):
@@ -58,12 +59,32 @@ class Board(object):
 
     def new_set_board(self):
         pass
+    
+    ### These will transform the board, prepping it for sliding then transforming it back when done.  
+#    def slide_board(self,direction):
+#        pass
+#        def transform_board(self,direction):
+#            pass
+#
+#            def arrays_to_matrix():
+#                pass
+#
+#            def rotate_left_90():
+#                pass
+#
+#            def rotate_right_90():
+#                pass
+#
+#            def rotate_180():
+#                pass
 
 
 def main():
     my_board = Board(4,4)
     my_board.new_random_board()
     my_board.display()
+#    pdb.set_trace()
+
 
 
 if __name__ == "__main__":
