@@ -14,7 +14,8 @@ class Board(object):
     def display(self):
         #print self.grid
         print "Current Board:"
-        for row in self.grid: print row
+        for row in self.grid: 
+            print row
 
     def get_card(self, x, y):
         return self.grid[x][y]
@@ -51,6 +52,7 @@ class Board(object):
 
             ### NEED TO ADD IN CONDITION IF THE LOCATION IS AT THE END OF THE MATRIX!!!
             #print "Rand int between 0 and %d is %d: (%d, %d)" %(self.size-nums_placed,location, x_loc, y_loc)
+#### you might try using math.floor from the math library it basically just rounds down 
 
             self.set_card(x_loc, y_loc, i)
 
