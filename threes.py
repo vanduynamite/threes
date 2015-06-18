@@ -108,33 +108,32 @@ def squish_list(nums):
     n = nums[0]
 
     if n == 0:
-        # return everything in the list to the right followed by a 0
+        # if the first thing in the list is 0, return everything in the list to the right followed by a 0
+
         nums.pop(0)
         nums.append(0)
         return nums
 
     elif len(nums) > 1:
+        # if we're dealing with a list longer than 1 item...
 
         m = nums[1]
 
-        if n + m == 3:
-            nums[0] = 3
-            nums.pop(1)
-            nums.append(0)
-            return nums
-
-        elif n == m:
-            nums[0] = nums[0] * 2
+        if n + m == 3 or n == m:
+            # if we can combine the first two in the list, do so and scoot the rest, add a 0 to the right
+            nums[0] = n + m
             nums.pop(1)
             nums.append(0)
             return nums
 
         else:
+            # if they can't combine then call squish_list on the rest of the list and stick the first item back in the front (phrasing)
             nums = squish_list(nums[1:])
             nums.insert(0,n)
             return nums
 
     else:
+        # if the list is only one item, return it
         return nums
 
 def main():
