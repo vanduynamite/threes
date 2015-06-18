@@ -105,31 +105,29 @@ class Board(object):
 def squish_list(nums):
     # will always squish a list to the left
 
-    n = nums[0]
+    first_num = nums[0]
 
-    if n == 0:
+    if first_num == 0:
         # if the first thing in the list is 0, return everything in the list to the right followed by a 0
-
         nums.pop(0)
-        nums.append(0)
+        nums.append(None)
         return nums
 
     elif len(nums) > 1:
         # if we're dealing with a list longer than 1 item...
+        second_num = nums[1]
 
-        m = nums[1]
-
-        if n + m == 3 or n == m:
+        if first_num + second_num == 3 or (first_num != 1 and first_num != 2 and first_num == second_num):
             # if we can combine the first two in the list, do so and scoot the rest, add a 0 to the right
-            nums[0] = n + m
+            nums[0] = first_num + second_num
             nums.pop(1)
-            nums.append(0)
+            nums.append(None)
             return nums
 
         else:
             # if they can't combine then call squish_list on the rest of the list and stick the first item back in the front (phrasing)
             nums = squish_list(nums[1:])
-            nums.insert(0,n)
+            nums.insert(0,first_num)
             return nums
 
     else:
@@ -141,7 +139,8 @@ def main():
     #     my_board = Board(4,4)
     #     my_board.new_random_board()
     #     my_board.display()
-    nums = [2,3,3,0]
+    nums = [2,1,0,0]
+    print nums
     nums = squish_list(nums)
     print nums
 
