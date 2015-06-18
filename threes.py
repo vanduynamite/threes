@@ -63,22 +63,40 @@ class Board(object):
 
 
     ### These will transform the board, prepping it for sliding then transforming it back when done.  
-#    def slide_board(self,direction):
-#        pass
-#        def transform_board(self,direction):
-#            pass
-#
-#            def arrays_to_matrix():
-#                pass
-#
-#            def rotate_left_90():
-#                pass
-#
-#            def rotate_right_90():
-#                pass
-#
-#            def rotate_180():
-#                pass
+    def slide_board(self,direction):
+        # TODO
+        """ 
+        rotate board based on direction
+        combine cards if they're in [3*2^^i for i in range(0,n)] n can be generated with bisection to save time
+        
+        """
+        pass
+    def is_stationary(self, 
+        """
+        is there a zero or a wall adjacent to the sliding direction?
+        """
+        pass
+
+    def combine_cards(self, stationary_card, moving_card):
+        if stationary_card == moving_card:
+            stationary_card += moving_card
+    def transform_board(self,direction):
+        pass
+
+        def arrays_to_matrix():
+            pass
+
+        def rotate_left_90():
+            pass
+
+        def rotate_right_90():
+            pass
+
+        def rotate_180():
+            pass
+
+    def transform_board_back(():
+            pass
 
 
 def main():
