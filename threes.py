@@ -42,9 +42,7 @@ class Board(object):
 
         def choose_random_position():
             rand_col = random.randint(0,self.x_size - 1)
-            #print "choose_random_position::rand_col = ", rand_col
             rand_row = random.randint(0,self.y_size - 1)
-            #print "choose_random_position::rand_row = ", rand_row
             return rand_col, rand_row
 
         def is_position_empty(position):
@@ -61,10 +59,7 @@ class Board(object):
                     break
             return position
     
-        #random.seed(366689885612465325) #<<< this doesn't work
-        #random.seed(2972259629954310496) #<<< this does work
         numlist = self.populate_card_list(6, 5, 5)
-        print "numlist length", len(numlist)
         for i in numlist:
             position = choose_random_empty_position()
             (col, row) = position
