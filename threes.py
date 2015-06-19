@@ -66,24 +66,42 @@ class Board(object):
         """
         pass
 
-        pass
 
-    def transform_board(self,direction):
-        pass
-
-        def arrays_to_matrix():
+        def transform_board(direction):
             pass
 
-        def rotate_left_90():
-            pass
+            def arrays_to_matrix(array):
+                return numpy.array(array)
 
-        def rotate_right_90():
-            pass
+            def rotate_left_90(matrix):
+                """
+                transpose
+                reverse each column
+                """
+                matrix = matrix.transpose()
+                matrix = numpy.flipud(matrix)
+                return matrix
 
-        def rotate_180():
-            pass
+            def rotate_right_90(matrix):
+                """
+                transpose
+                reverse each row
+                """
+                matrix = matrix.transpose()
+                matrix = numpy.fliplr(matrix)
+                return matrix
 
-    def transform_board_back():
+            def rotate_180(matrix):
+                """
+                reverse each column
+                reverse each row
+                """
+                matrix = numpy.fliplr(matrix)
+                matrix = numpy.flipud(matrix)
+                return matrix
+
+
+        def transform_board_back():
             pass
 
 
