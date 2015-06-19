@@ -12,7 +12,6 @@ class Board(object):
          self.grid = [[0 for i in range (0,y_size)] for j in range(0,x_size)]
 
     def display(self):
-        #print self.grid
         print "Current Board:"
         for row in self.grid: print row
 
