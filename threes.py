@@ -67,22 +67,14 @@ class Board(object):
     def slide_board(self,direction):
         # TODO
         """ 
-        rotate board based on direction
-        combine cards if they're in [3*2^^i for i in range(0,n)] n can be generated with bisection to save time
-        
+        rotate board based on direction with transform_board
+        use squish row to squish it
+        rotate board back with transform_board_back
         """
         pass
-    def is_stationary(self):
-        """
-        Don't think we need this -PvD
-        is there a zero or a wall adjacent to the sliding direction?
-        """
 
         pass
 
-    def combine_cards(self, stationary_card, moving_card):
-        if stationary_card == moving_card:
-            stationary_card += moving_card
     def transform_board(self,direction):
         pass
 
@@ -102,37 +94,37 @@ class Board(object):
             pass
 
 
-def squish_list(nums):
+def squish_list(num_row):
     # will always squish a list to the left
 
-    first_num = nums[0]
+    first_num = num_row[0]
 
     if first_num == 0:
         # if the first thing in the list is 0, return everything in the list to the right followed by a 0
-        nums.pop(0)
-        nums.append(None)
-        return nums
+        num_row.pop(0)
+        num_row.append(None)
+        return num_row
 
-    elif len(nums) > 1:
+    elif len(num_row) > 1:
         # if we're dealing with a list longer than 1 item...
-        second_num = nums[1]
+        second_num = num_row[1]
 
         if first_num + second_num == 3 or (first_num != 1 and first_num != 2 and first_num == second_num):
             # if we can combine the first two in the list, do so and scoot the rest, add a 0 to the right
-            nums[0] = first_num + second_num
-            nums.pop(1)
-            nums.append(None)
-            return nums
+            num_row[0] = first_num + second_num
+            num_row.pop(1)
+            num_row.append(None)
+            return num_row
 
         else:
             # if they can't combine then call squish_list on the rest of the list and stick the first item back in the front (phrasing)
-            nums = squish_list(nums[1:])
-            nums.insert(0,first_num)
-            return nums
+            num_row = squish_list(num_row[1:])
+            num_row.insert(0,first_num)
+            return num_row
 
     else:
         # if the list is only one item, return it
-        return nums
+        return num_row
 
 def main():
     # for i in range(0,1):
