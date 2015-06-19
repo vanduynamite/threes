@@ -1,3 +1,7 @@
+import sys
+import pdb
+import math
+import numpy
 import random
 
 class Board(object):
@@ -21,11 +25,8 @@ class Board(object):
     def set_card(self, x, y, value):
         self.grid[x][y] = value
 
-    def new_random_board(self):
-        num_threes = 4
-        num_twos = 3
-        num_ones = 2
 
+    def populate_card_list(self, num_threes, num_twos, num_ones):
         nums_to_place = []
 
         for i in range(0,num_threes):
@@ -34,28 +35,44 @@ class Board(object):
             nums_to_place.append(2)
         for i in range(0,num_ones):
             nums_to_place.append(1)
+        return nums_to_place
 
-        nums_placed = 0
-        
-        for i in nums_to_place:
-            
-            location = random.randint(0,self.size - nums_placed-1)
-            x_loc = location % self.y_size
-            y_loc = (location - x_loc) / self.y_size
 
-            while self.get_card(x_loc,y_loc) != 0:
-                location += 1
-                if location > self.size:
-                    location = 0 
-                x_loc = location % self.y_size
-                y_loc = (location - x_loc) / self.y_size
+    def new_random_board(self):
 
-            #print "Rand int between 0 and %d is %d: (%d, %d)" %(self.size-nums_placed,location, x_loc, y_loc)
+        def choose_random_position():
+            rand_col = random.randint(0,self.x_size - 1)
+            #print "choose_random_position::rand_col = ", rand_col
+            rand_row = random.randint(0,self.y_size - 1)
+            #print "choose_random_position::rand_row = ", rand_row
+            return rand_col, rand_row
 
-            self.set_card(x_loc, y_loc, i)
+        def is_position_empty(position):
+            rand_col, rand_row = position
+            if self.grid[rand_col][rand_row] != 0:
+                return False
+            else:
+                return True
 
-            nums_placed += 1
-
+        def choose_random_empty_position():
+            recursive_index = 0
+            position = choose_random_position()
+            if is_position_empty(position) != True:
+                choose_random_empty_position()
+                recursive_index += 1
+                print "number of tries to guess emtpy position ", recursive_index
+            return position
+    
+        #random.seed(366689885612465325) #<<< this doesn't work
+        #random.seed(2972259629954310496) #<<< this does work
+        numlist = self.populate_card_list(6, 5, 5)
+        print "numlist length", len(numlist)
+        for i in numlist:
+            position = choose_random_empty_position()
+            #col = position[0]
+            #row = position[1]
+            (col, row) = position
+            self.set_card(col, row, i)
 
     def new_set_board(self):
         # if you want to define a board from the actual game
@@ -127,14 +144,16 @@ def squish_list(num_row):
         return num_row
 
 def main():
-    # for i in range(0,1):
-    #     my_board = Board(4,4)
-    #     my_board.new_random_board()
-    #     my_board.display()
-    nums = [2,1,0,0]
-    print nums
-    nums = squish_list(nums)
-    print nums
+     for i in range(0,1):
+         my_board = Board(4,4)
+         my_board.new_random_board()
+         my_board.display()
+
+    #nums = [2,1,0,0]
+    #print nums
+    #nums = squish_list(nums)
+    #print nums
+
 
 
 if __name__ == "__main__":
