@@ -74,32 +74,19 @@ class Board(object):
                 return numpy.array(array)
 
             def rotate_left_90(matrix):
-                """
-                transpose
-                reverse each column
-                """
                 matrix = matrix.transpose()
                 matrix = numpy.flipud(matrix)
                 return matrix
 
             def rotate_right_90(matrix):
-                """
-                transpose
-                reverse each row
-                """
                 matrix = matrix.transpose()
                 matrix = numpy.fliplr(matrix)
                 return matrix
 
             def rotate_180(matrix):
-                """
-                reverse each column
-                reverse each row
-                """
                 matrix = numpy.fliplr(matrix)
                 matrix = numpy.flipud(matrix)
                 return matrix
-
 
         def transform_board_back():
             pass
