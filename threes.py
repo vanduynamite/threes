@@ -1,6 +1,3 @@
-import sys
-import pdb
-import math
 import numpy
 import random
 
@@ -26,18 +23,6 @@ class Board(object):
         self.grid[x][y] = value
 
 
-    def populate_card_list(self, num_threes, num_twos, num_ones):
-        nums_to_place = []
-
-        for i in range(0,num_threes):
-            nums_to_place.append(3)
-        for i in range(0,num_twos):
-            nums_to_place.append(2)
-        for i in range(0,num_ones):
-            nums_to_place.append(1)
-        return nums_to_place
-
-
     def new_random_board(self):
 
         def choose_random_position():
@@ -59,7 +44,8 @@ class Board(object):
                     break
             return position
     
-        numlist = self.populate_card_list(6, 5, 5)
+        populate_card_list = lambda num_threes, num_twos, num_ones: num_threes * [3] + num_twos * [2] + num_ones * [1]
+        numlist = populate_card_list(6, 5, 5)
         for i in numlist:
             col, row = choose_random_empty_position()
             self.set_card(col, row, i)
