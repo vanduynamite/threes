@@ -104,7 +104,6 @@ class Board(object):
         def transform_board_back():
             pass
 
-
 def squish_list(num_row):
     # will always squish a list to the left
 
