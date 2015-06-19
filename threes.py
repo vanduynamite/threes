@@ -55,12 +55,10 @@ class Board(object):
                 return True
 
         def choose_random_empty_position():
-            recursive_index = 0
-            position = choose_random_position()
-            if is_position_empty(position) != True:
-                choose_random_empty_position()
-                recursive_index += 1
-                print "number of tries to guess emtpy position ", recursive_index
+            while True:
+                position = choose_random_position()
+                if is_position_empty(position) != False:
+                    break
             return position
     
         #random.seed(366689885612465325) #<<< this doesn't work
@@ -69,8 +67,6 @@ class Board(object):
         print "numlist length", len(numlist)
         for i in numlist:
             position = choose_random_empty_position()
-            #col = position[0]
-            #row = position[1]
             (col, row) = position
             self.set_card(col, row, i)
 
