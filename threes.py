@@ -61,9 +61,7 @@ class Board(object):
     
         numlist = self.populate_card_list(6, 5, 5)
         for i in numlist:
-            position = choose_random_empty_position()
-            (col, row) = position
-            self.set_card(col, row, i)
+            self.set_card(choose_random_empty_position()[0], choose_random_empty_position()[1], i)
 
     def new_set_board(self):
         # if you want to define a board from the actual game
