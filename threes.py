@@ -44,7 +44,7 @@ class Board(object):
             return position
     
         populate_card_list = lambda num_threes, num_twos, num_ones: num_threes * [3] + num_twos * [2] + num_ones * [1]
-        numlist = populate_card_list(6, 5, 5)
+        numlist = populate_card_list(3, 2, 1)
         for i in numlist:
             col, row = choose_random_empty_position()
             self.set_card(col, row, i)
@@ -56,7 +56,7 @@ class Board(object):
 
 
     ### These will transform the board, prepping it for sliding then transforming it back when done.  
-    def slide_board(self,direction):
+    def slide_board(self,slide_direction):
         # TODO
         """ 
         rotate board based on direction with transform_board
@@ -66,28 +66,37 @@ class Board(object):
         pass
 
 
-        def transform_board(direction):
-            pass
+        def arrays_to_matrix(array):
+            return numpy.array(array)
 
-            def arrays_to_matrix(array):
-                return numpy.array(array)
+        def rotate_board(board, slide_direction):
+            if slide_direction == "left":
+                return board
+            elif slide_direction == "up":
+                return rotate_left_90(board)
+            elif slide_direction == "right":
+                return rotate_180(board)
+            elif slide_direction == "down":
+                return rotate_right_90(board)
+            else:
+                print "woops, you did something wrong"
 
-            def rotate_left_90(matrix):
-                matrix = matrix.transpose()
-                matrix = numpy.flipud(matrix)
-                return matrix
+        def rotate_left_90(matrix):
+            matrix = matrix.transpose()
+            matrix = numpy.flipud(matrix)
+            return matrix
 
-            def rotate_right_90(matrix):
-                matrix = matrix.transpose()
-                matrix = numpy.fliplr(matrix)
-                return matrix
+        def rotate_right_90(matrix):
+            matrix = matrix.transpose()
+            matrix = numpy.fliplr(matrix)
+            return matrix
 
-            def rotate_180(matrix):
-                matrix = numpy.fliplr(matrix)
-                matrix = numpy.flipud(matrix)
-                return matrix
+        def rotate_180(matrix):
+            matrix = numpy.fliplr(matrix)
+            matrix = numpy.flipud(matrix)
+            return matrix
 
-        def transform_board_back():
+        def rotate_board_back():
             pass
 
 def squish_list(num_row):
@@ -127,6 +136,7 @@ def main():
          my_board = Board(4,4)
          my_board.new_random_board()
          my_board.display()
+         nums = squish_list(nums)
 
     #nums = [2,1,0,0]
     #print nums
