@@ -135,52 +135,52 @@ class Board(object):
         def rotate_board_back():
             pass
 
-def squish_list(num_row):
-    # will always squish a list to the left
-
-    first_num = num_row[0]
-
-    def slide_only():
-        num_row.pop(0)
-        num_row.append(None)
-        return num_row
-
-    def combine():
-        num_row[0] = first_num + second_num
-        num_row.pop(1)
-        num_row.append(None)
-        return num_row
-
-    if first_num == 0:
-        slide_only()
-    elif len(num_row) > 1 and 
-
-    if first_num == 0:
-        # if the first thing in the list is 0, return everything in the list to the right followed by a 0
-        num_row.pop(0)
-        num_row.append(None)
-        return num_row
-
-    elif len(num_row) > 1:
-        # if we're dealing with a list longer than 1 item...
-        second_num = num_row[1]
-
-        if first_num + second_num == 3 or (first_num != 1 and first_num != 2 and first_num == second_num):
-            # if we can combine the first two in the list, do so and scoot the rest, add a 0 to the right
-            num_row[0] = first_num + second_num
-            num_row.pop(1)
-            num_row.append(None)
-            return num_row
-
-        else:
-            # if they can't combine then call squish_list on the rest of the list and stick the first item back in the front (phrasing)
-            num_row = squish_list(num_row[1:])
-            num_row.insert(0,first_num)
-            return num_row
-
-    else:
-        # if the list is only one item, return it
-        return num_row
+        def squish_list(num_row):
+            # will always squish a list to the left
+        
+            first_num = num_row[0]
+        
+            def slide_only():
+                num_row.pop(0)
+                num_row.append(None)
+                return num_row
+        
+            def combine():
+                num_row[0] = first_num + second_num
+                num_row.pop(1)
+                num_row.append(None)
+                return num_row
+        
+            if first_num == 0:
+                slide_only()
+            elif len(num_row) > 1 and 
+        
+            if first_num == 0:
+                # if the first thing in the list is 0, return everything in the list to the right followed by a 0
+                num_row.pop(0)
+                num_row.append(None)
+                return num_row
+        
+            elif len(num_row) > 1:
+                # if we're dealing with a list longer than 1 item...
+                second_num = num_row[1]
+        
+                if first_num + second_num == 3 or (first_num != 1 and first_num != 2 and first_num == second_num):
+                    # if we can combine the first two in the list, do so and scoot the rest, add a 0 to the right
+                    num_row[0] = first_num + second_num
+                    num_row.pop(1)
+                    num_row.append(None)
+                    return num_row
+        
+                else:
+                    # if they can't combine then call squish_list on the rest of the list and stick the first item back in the front (phrasing)
+                    num_row = squish_list(num_row[1:])
+                    num_row.insert(0,first_num)
+                    return num_row
+        
+            else:
+                # if the list is only one item, return it
+                return num_row
 
 def main():
      for i in range(0,1):
