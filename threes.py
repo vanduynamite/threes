@@ -4,12 +4,12 @@ import random
 class Board(object):
 
 
-    def __init__(self, x_size, y_size):
+    def __init__(self):
          self.x_size = 4
          self.y_size = 4
-         self.size= x_size * y_size
+         self.size= self.x_size * self.y_size
 
-         self.grid = [[0 for i in range (0,y_size)] for j in range(0,x_size)]
+         self.grid = [[0 for i in range (0,self.y_size)] for j in range(0,self.x_size)]
 
     def display(self):
         print "Current Board:"
@@ -44,7 +44,7 @@ class Board(object):
             return position
     
         populate_card_list = lambda num_threes, num_twos, num_ones: num_threes * [3] + num_twos * [2] + num_ones * [1]
-        numlist = populate_card_list(3, 2, 1)
+        numlist = populate_card_list(3, 3, 3)
         for i in numlist:
             col, row = choose_random_empty_position()
             self.set_card(col, row, i)
@@ -52,6 +52,43 @@ class Board(object):
     def new_set_board(self):
         # if you want to define a board from the actual game
         pass
+
+
+    def rotate_board(self, clock):
+        # counter goes right to left, top to bottom
+        # clock goes left to right, bottom to top
+
+        if clock:
+            start_lat = 0
+            end_lat = self.x_size
+
+            start_long = self.y_size - 1
+            end_long = -1
+        else:
+            start_lat = self.x_size - 1
+            end_lat = -1
+
+            start_long = 0
+            end_long = self.y_size
+
+        step_lat = numpy.sign(end_lat - start_lat)
+        step_long = numpy.sign(end_long - start_long)
+
+        #print start_lat, end_lat, step_lat
+        #print start_long, end_long, step_long
+
+        new_board = []
+
+        for i in range(start_lat, end_lat, step_lat):
+            sub_list = []
+
+            for j in range(start_long, end_long, step_long):
+                sub_list.append(self.grid[j][i])
+
+            new_board.append(sub_list)
+
+        self.grid = new_board
+        
 
 
 
@@ -133,10 +170,11 @@ def squish_list(num_row):
 
 def main():
      for i in range(0,1):
-         my_board = Board(4,4)
+         my_board = Board()
          my_board.new_random_board()
          my_board.display()
-         nums = squish_list(nums)
+         my_board.rotate_board(False)
+         my_board.display()
 
     #nums = [2,1,0,0]
     #print nums
