@@ -89,7 +89,6 @@ class Board(object):
             new_board.append(sub_list)
 
         self.grid = new_board
-        
 
 
 
@@ -146,6 +145,21 @@ def squish_list(num_row):
 
     first_num = num_row[0]
 
+    def slide_only():
+        num_row.pop(0)
+        num_row.append(None)
+        return num_row
+
+    def combine():
+        num_row[0] = first_num + second_num
+        num_row.pop(1)
+        num_row.append(None)
+        return num_row
+
+    if first_num == 0:
+        slide_only()
+    elif len(num_row) > 1 and 
+
     if first_num == 0:
         # if the first thing in the list is 0, return everything in the list to the right followed by a 0
         num_row.pop(0)
@@ -178,7 +192,7 @@ def main():
          my_board = Board()
          my_board.new_random_board()
          my_board.display()
-         my_board.rotate_board(False)
+         my_board.rotate_board(True)
          my_board.display()
 
     #nums = [2,1,0,0]
