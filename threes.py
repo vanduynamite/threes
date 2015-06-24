@@ -99,7 +99,6 @@ class Board(object):
         use squish row to squish it
         rotate board back with transform_board_back
         """
-        pass
 
 
         def arrays_to_matrix(array):
@@ -132,7 +131,18 @@ class Board(object):
             matrix = numpy.flipud(matrix)
             return matrix
 
-        def rotate_board_back():
+        def rotate_board_back(board, slide_direction_was):
+            if slide_direction_was == "left":
+                return board
+            elif slide_direction_was == "up":
+                return rotate_right_90(board)
+            elif slide_direction_was == "right":
+                return rotate_180(board)
+            elif slide_direction_was == "down":
+                return rotate_left_90(board)
+            else:
+                print "woops, you did something wrong"
+
             pass
 
         def squish_list(num_row):
@@ -181,6 +191,16 @@ class Board(object):
             else:
                 # if the list is only one item, return it
                 return num_row
+
+
+
+        arrays_to_matrix(self.grid)
+        rotate_board(self.grid, slide_direction)
+        #### not written yet squish_board(self.grid)
+        rotate_board_back(self.grid, slide_direction)
+        matrix_to_arrays(self.grid)
+
+
 
 def main():
      for i in range(0,1):
