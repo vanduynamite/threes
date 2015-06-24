@@ -54,40 +54,40 @@ class Board(object):
         pass
 
 
-    def rotate_board(self, clock):
-        # counter goes right to left, top to bottom
-        # clock goes left to right, bottom to top
+    # def rotate_board(self, clock):
+    #     # counter goes right to left, top to bottom
+    #     # clock goes left to right, bottom to top
 
-        if clock:
-            start_lat = 0
-            end_lat = self.x_size
+    #     if clock:
+    #         start_lat = 0
+    #         end_lat = self.x_size
 
-            start_long = self.y_size - 1
-            end_long = -1
-        else:
-            start_lat = self.x_size - 1
-            end_lat = -1
+    #         start_long = self.y_size - 1
+    #         end_long = -1
+    #     else:
+    #         start_lat = self.x_size - 1
+    #         end_lat = -1
 
-            start_long = 0
-            end_long = self.y_size
+    #         start_long = 0
+    #         end_long = self.y_size
 
-        step_lat = numpy.sign(end_lat - start_lat)
-        step_long = numpy.sign(end_long - start_long)
+    #     step_lat = numpy.sign(end_lat - start_lat)
+    #     step_long = numpy.sign(end_long - start_long)
 
-        #print start_lat, end_lat, step_lat
-        #print start_long, end_long, step_long
+    #     #print start_lat, end_lat, step_lat
+    #     #print start_long, end_long, step_long
 
-        new_board = []
+    #     new_board = []
 
-        for i in range(start_lat, end_lat, step_lat):
-            sub_list = []
+    #     for i in range(start_lat, end_lat, step_lat):
+    #         sub_list = []
 
-            for j in range(start_long, end_long, step_long):
-                sub_list.append(self.grid[j][i])
+    #         for j in range(start_long, end_long, step_long):
+    #             sub_list.append(self.grid[j][i])
 
-            new_board.append(sub_list)
+    #         new_board.append(sub_list)
 
-        self.grid = new_board
+    #     self.grid = new_board
 
 
 
