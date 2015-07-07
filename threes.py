@@ -54,6 +54,93 @@ class Board(object):
         pass
 
 
+
+
+    ### These will transform the board, prepping it for sliding then transforming it back when done.  
+    def slide_board(self,slide_direction):
+
+        def squish_board(board):
+
+            def squish_list(num_row):
+                # will always squish a list to the left
+                fill_value = 0
+                first_num = num_row[0]
+            
+                if first_num == 0:
+                    # if the first thing in the list is 0, return everything in the list to the right followed by a 0
+                    num_row.pop(0)
+                    num_row.append(fill_value)
+                    return num_row
+            
+                elif len(num_row) > 1:
+                    # if we're dealing with a list longer than 1 item...
+                    second_num = num_row[1]
+            
+                    if first_num + second_num == 3 or (first_num != 1 and first_num != 2 and first_num == second_num):
+                        # if we can combine the first two in the list, do so and scoot the rest, add a 0 to the right
+                        num_row[0] = first_num + second_num
+                        num_row.pop(1)
+                        num_row.append(fill_value)
+                        return num_row
+            
+                    else:
+                        # if they can't combine then call squish_list on the rest of the list and stick the first item back in the front (phrasing)
+                        num_row = squish_list(num_row[1:])
+                        num_row.insert(0,first_num)
+                        return num_row
+            
+                else:
+                    # if the list is only one item, return it
+                    return num_row
+
+            for row in board:
+                row = squish_list(row)
+
+            return board
+
+        print 'Sliding the board %s!' % slide_direction
+
+        if slide_direction == 'left':
+            # no rotation!
+            self.grid = squish_board(self.grid)
+
+        elif slide_direction == 'down':
+            # rotate clockwise
+            self.grid = squish_board(self.grid)
+            # rotate counterclockwise
+
+        elif slide_direction == 'up':
+            # rotate counterclockwise
+            self.grid = squish_board(self.grid)
+            # rotate clockwise
+
+        elif slide_direction == 'right':
+            # rotate 180
+            self.grid = squish_board(self.grid)
+            # rotate 180
+
+
+
+
+def main():
+     for i in range(0,1):
+         my_board = Board()
+         my_board.new_random_board()
+         my_board.display()
+         my_board.slide_board("left")
+         my_board.display()
+
+         my_board.slide_board("left")
+         my_board.display()
+         my_board.slide_board("left")
+         my_board.display()
+
+
+if __name__ == "__main__":
+    main()
+
+
+
     # def rotate_board(self, clock):
     #     # counter goes right to left, top to bottom
     #     # clock goes left to right, bottom to top
@@ -88,121 +175,3 @@ class Board(object):
     #         new_board.append(sub_list)
 
     #     self.grid = new_board
-
-
-
-    ### These will transform the board, prepping it for sliding then transforming it back when done.  
-    def slide_board(self,slide_direction):
-        # TODO
-        """ 
-        rotate board based on direction with transform_board
-        use squish row to squish it
-        rotate board back with transform_board_back
-        """
-
-
-        def arrays_to_matrix(board):
-            return numpy.array(board)
-
-        def rotate_board(board, slide_direction):
-            if slide_direction == "left":
-                return board
-            elif slide_direction == "up":
-                return rotate_left_90(board)
-            elif slide_direction == "right":
-                return rotate_180(board)
-            elif slide_direction == "down":
-                return rotate_right_90(board)
-            else:
-                print "woops, you did something wrong"
-
-        def rotate_left_90(matrix):
-            matrix = matrix.transpose()
-            matrix = numpy.flipud(matrix)
-            return matrix
-
-        def rotate_right_90(matrix):
-            matrix = matrix.transpose()
-            matrix = numpy.fliplr(matrix)
-            return matrix
-
-        def rotate_180(matrix):
-            matrix = numpy.fliplr(matrix)
-            matrix = numpy.flipud(matrix)
-            return matrix
-
-        def rotate_board_back(board, slide_direction_was):
-            if slide_direction_was == "left":
-                return board
-            elif slide_direction_was == "up":
-                return rotate_right_90(board)
-            elif slide_direction_was == "right":
-                return rotate_180(board)
-            elif slide_direction_was == "down":
-                return rotate_left_90(board)
-            else:
-                print "woops, you did something wrong"
-
-            pass
-
-        def squish_board(board):
-
-            def squish_list(num_row):
-                # will always squish a list to the left
-            
-                first_num = num_row[0]
-            
-                if first_num == 0:
-                    # if the first thing in the list is 0, return everything in the list to the right followed by a 0
-                    num_row.pop(0)
-                    num_row.append(None)
-                    return num_row
-            
-                elif len(num_row) > 1:
-                    # if we're dealing with a list longer than 1 item...
-                    second_num = num_row[1]
-            
-                    if first_num + second_num == 3 or (first_num != 1 and first_num != 2 and first_num == second_num):
-                        # if we can combine the first two in the list, do so and scoot the rest, add a 0 to the right
-                        num_row[0] = first_num + second_num
-                        num_row.pop(1)
-                        num_row.append(None)
-                        return num_row
-            
-                    else:
-                        # if they can't combine then call squish_list on the rest of the list and stick the first item back in the front (phrasing)
-                        num_row = squish_list(num_row[1:])
-                        num_row.insert(0,first_num)
-                        return num_row
-            
-                else:
-                    # if the list is only one item, return it
-                    return num_row
-
-            for row in board:
-                row = squish_list(row)
-
-
-
-        self.grid = arrays_to_matrix(self.grid)
-
-        self.grid = rotate_board(self.grid, slide_direction)
-
-        self.grid = squish_board(self.grid)
-
-        self.grid = rotate_board_back(self.grid, slide_direction)
-
-        # self.grid = matrix_to_arrays(self.grid)
-
-
-
-def main():
-     for i in range(0,1):
-         my_board = Board()
-         my_board.new_random_board()
-         my_board.display()
-
-
-
-if __name__ == "__main__":
-    main()
