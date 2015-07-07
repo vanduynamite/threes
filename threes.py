@@ -14,6 +14,7 @@ class Board(object):
     def display(self):
         print "Current Board:"
         for row in self.grid: print row
+        print ""
 
     def get_card(self, x, y):
         return self.grid[x][y]
@@ -58,6 +59,38 @@ class Board(object):
 
     ### These will transform the board, prepping it for sliding then transforming it back when done.  
     def slide_board(self,slide_direction):
+
+        def rotate_board(board, clock):
+            # counter goes right to left, top to bottom
+            # clock goes left to right, bottom to top
+
+            if clock:
+                start_lat = 0
+                end_lat = self.x_size
+
+                start_long = self.y_size - 1
+                end_long = -1
+            else:
+                start_lat = self.x_size - 1
+                end_lat = -1
+
+                start_long = 0
+                end_long = self.y_size
+
+            step_lat = numpy.sign(end_lat - start_lat)
+            step_long = numpy.sign(end_long - start_long)
+
+            new_board = []
+
+            for i in range(start_lat, end_lat, step_lat):
+                sub_list = []
+
+                for j in range(start_long, end_long, step_long):
+                    sub_list.append(self.grid[j][i])
+
+                new_board.append(sub_list)
+
+            return new_board
 
         def squish_board(board):
 
@@ -105,19 +138,21 @@ class Board(object):
             self.grid = squish_board(self.grid)
 
         elif slide_direction == 'down':
-            # rotate clockwise
+            self.grid = rotate_board(self.grid, True)
             self.grid = squish_board(self.grid)
-            # rotate counterclockwise
+            self.grid = rotate_board(self.grid, False)
 
         elif slide_direction == 'up':
-            # rotate counterclockwise
+            self.grid = rotate_board(self.grid, False)
             self.grid = squish_board(self.grid)
-            # rotate clockwise
+            self.grid = rotate_board(self.grid, True)
 
         elif slide_direction == 'right':
-            # rotate 180
+            self.grid = rotate_board(self.grid, True)
+            self.grid = rotate_board(self.grid, True)
             self.grid = squish_board(self.grid)
-            # rotate 180
+            self.grid = rotate_board(self.grid, True)
+            self.grid = rotate_board(self.grid, True)
 
 
 
@@ -129,49 +164,13 @@ def main():
          my_board.display()
          my_board.slide_board("left")
          my_board.display()
-
-         my_board.slide_board("left")
+         my_board.slide_board("right")
          my_board.display()
-         my_board.slide_board("left")
+         my_board.slide_board("up")
+         my_board.display()
+         my_board.slide_board("down")
          my_board.display()
 
 
 if __name__ == "__main__":
     main()
-
-
-
-    # def rotate_board(self, clock):
-    #     # counter goes right to left, top to bottom
-    #     # clock goes left to right, bottom to top
-
-    #     if clock:
-    #         start_lat = 0
-    #         end_lat = self.x_size
-
-    #         start_long = self.y_size - 1
-    #         end_long = -1
-    #     else:
-    #         start_lat = self.x_size - 1
-    #         end_lat = -1
-
-    #         start_long = 0
-    #         end_long = self.y_size
-
-    #     step_lat = numpy.sign(end_lat - start_lat)
-    #     step_long = numpy.sign(end_long - start_long)
-
-    #     #print start_lat, end_lat, step_lat
-    #     #print start_long, end_long, step_long
-
-    #     new_board = []
-
-    #     for i in range(start_lat, end_lat, step_lat):
-    #         sub_list = []
-
-    #         for j in range(start_long, end_long, step_long):
-    #             sub_list.append(self.grid[j][i])
-
-    #         new_board.append(sub_list)
-
-    #     self.grid = new_board
