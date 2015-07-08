@@ -163,7 +163,7 @@ class Board(object):
         else:
             print 'Not a valid direction, try again. Use a, s, d, w, or q to quit.'
 
-        # Next up add new numbers to the added places. Don't know exactly where to add them though.
+        # Next up add new numbers to the added places. Don't know the exact algorithm for adding them though. If you play the game there's a definite something going on there.
 
 
 def main():
@@ -173,7 +173,7 @@ def main():
          my_board.display()
          direction = ''
          while direction <> 'q':
-             direction = raw_input(">>>(a,s,d,w)>>>")
+             direction = raw_input(">>>(a,s,d,w,q)>>>")
              my_board.slide_board(direction)
              if direction <> 'q':
                 my_board.display()
