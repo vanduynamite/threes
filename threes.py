@@ -159,7 +159,7 @@ class Board(object):
         else:
             print 'Not a valid direction, try again. Use left, up, right, down, i, j, k, or l'
 
-
+        # Next up add new numbers to the added places. Don't know exactly where to add them though.
 
 
 def main():
