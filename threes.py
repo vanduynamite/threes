@@ -44,6 +44,8 @@ class Board(object):
                     break
             return position
     
+        #random.seed(8)
+
         populate_card_list = lambda num_threes, num_twos, num_ones: num_threes * [3] + num_twos * [2] + num_ones * [1]
         numlist = populate_card_list(3, 3, 3)
         for i in numlist:
@@ -53,8 +55,6 @@ class Board(object):
     def new_set_board(self):
         # if you want to define a board from the actual game
         pass
-
-
 
 
     ### These will transform the board, prepping it for sliding then transforming it back when done.  
@@ -96,24 +96,23 @@ class Board(object):
 
             def squish_list(num_row):
                 # will always squish a list to the left
-                fill_value = 0
+                insert_value = 0
                 first_num = num_row[0]
-            
+
                 if first_num == 0:
                     # if the first thing in the list is 0, return everything in the list to the right followed by a 0
                     num_row.pop(0)
-                    num_row.append(fill_value)
+                    num_row.append(insert_value)
                     return num_row
             
                 elif len(num_row) > 1:
                     # if we're dealing with a list longer than 1 item...
                     second_num = num_row[1]
-            
                     if first_num + second_num == 3 or (first_num != 1 and first_num != 2 and first_num == second_num):
                         # if we can combine the first two in the list, do so and scoot the rest, add a 0 to the right
                         num_row[0] = first_num + second_num
                         num_row.pop(1)
-                        num_row.append(fill_value)
+                        num_row.append(insert_value)
                         return num_row
             
                     else:
@@ -126,33 +125,39 @@ class Board(object):
                     # if the list is only one item, return it
                     return num_row
 
-            for row in board:
-                row = squish_list(row)
+            for i in range(0,len(board)):
+                board[i] = squish_list(board[i])
+
+            # Why does this not work?????? Sometimes but not others...
+            # for row in board:
+            #     row = squish_list(row)
 
             return board
 
         print 'Sliding the board %s!' % slide_direction
 
-        if slide_direction == 'left':
+        if slide_direction == 'left' or slide_direction == 'j':
             # no rotation!
             self.grid = squish_board(self.grid)
 
-        elif slide_direction == 'down':
+        elif slide_direction == 'down' or slide_direction == 'k':
             self.grid = rotate_board(self.grid, True)
             self.grid = squish_board(self.grid)
             self.grid = rotate_board(self.grid, False)
 
-        elif slide_direction == 'up':
+        elif slide_direction == 'up' or slide_direction == 'i':
             self.grid = rotate_board(self.grid, False)
             self.grid = squish_board(self.grid)
             self.grid = rotate_board(self.grid, True)
 
-        elif slide_direction == 'right':
+        elif slide_direction == 'right' or slide_direction == 'l':
             self.grid = rotate_board(self.grid, True)
             self.grid = rotate_board(self.grid, True)
             self.grid = squish_board(self.grid)
             self.grid = rotate_board(self.grid, True)
             self.grid = rotate_board(self.grid, True)
+        else:
+            print 'Not a valid direction, try again. Use left, up, right, down, i, j, k, or l'
 
 
 
@@ -162,14 +167,12 @@ def main():
          my_board = Board()
          my_board.new_random_board()
          my_board.display()
-         my_board.slide_board("left")
-         my_board.display()
-         my_board.slide_board("right")
-         my_board.display()
-         my_board.slide_board("up")
-         my_board.display()
-         my_board.slide_board("down")
-         my_board.display()
+         while True:
+             direction = raw_input(">>>(i,j,k,l)>>>")
+             my_board.slide_board(direction)
+             my_board.display()
+
+
 
 
 if __name__ == "__main__":
