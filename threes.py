@@ -134,30 +134,34 @@ class Board(object):
 
             return board
 
-        print 'Sliding the board %s!' % slide_direction
-
-        if slide_direction == 'left' or slide_direction == 'j':
+        if slide_direction == 'left' or slide_direction == 'a':
             # no rotation!
+            print 'Sliding the board left!'
             self.grid = squish_board(self.grid)
 
-        elif slide_direction == 'down' or slide_direction == 'k':
+        elif slide_direction == 'down' or slide_direction == 's':
+            print 'Sliding the board down!'
             self.grid = rotate_board(self.grid, True)
             self.grid = squish_board(self.grid)
             self.grid = rotate_board(self.grid, False)
 
-        elif slide_direction == 'up' or slide_direction == 'i':
+        elif slide_direction == 'up' or slide_direction == 'w':
+            print 'Sliding the board up!'
             self.grid = rotate_board(self.grid, False)
             self.grid = squish_board(self.grid)
             self.grid = rotate_board(self.grid, True)
 
-        elif slide_direction == 'right' or slide_direction == 'l':
+        elif slide_direction == 'right' or slide_direction == 'd':
+            print 'Sliding the board right!'
             self.grid = rotate_board(self.grid, True)
             self.grid = rotate_board(self.grid, True)
             self.grid = squish_board(self.grid)
             self.grid = rotate_board(self.grid, True)
             self.grid = rotate_board(self.grid, True)
+        elif slide_direction == 'q':
+            print 'Thanks for playing!'
         else:
-            print 'Not a valid direction, try again. Use left, up, right, down, i, j, k, or l'
+            print 'Not a valid direction, try again. Use a, s, d, w, or q to quit.'
 
         # Next up add new numbers to the added places. Don't know exactly where to add them though.
 
@@ -167,10 +171,12 @@ def main():
          my_board = Board()
          my_board.new_random_board()
          my_board.display()
-         while True:
-             direction = raw_input(">>>(i,j,k,l)>>>")
+         direction = ''
+         while direction <> 'q':
+             direction = raw_input(">>>(a,s,d,w)>>>")
              my_board.slide_board(direction)
-             my_board.display()
+             if direction <> 'q':
+                my_board.display()
 
 
 
