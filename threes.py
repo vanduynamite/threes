@@ -47,8 +47,8 @@ class Board(object):
         #random.seed(8)
 
         populate_card_list = lambda num_threes, num_twos, num_ones: num_threes * [3] + num_twos * [2] + num_ones * [1]
-        numlist = populate_card_list(3, 3, 3)
-        for i in numlist:
+        cardlist = populate_card_list(3, 3, 3)
+        for i in cardlist:
             col, row = choose_random_empty_position()
             self.set_card(col, row, i)
 
