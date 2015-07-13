@@ -52,11 +52,6 @@ class Board(object):
             col, row = choose_random_empty_position()
             self.set_card(col, row, i)
 
-    def new_set_board(self):
-        # if you want to define a board from the actual game
-        pass
-
-
     ### These will transform the board, prepping it for sliding then transforming it back when done.  
     def slide_board(self,slide_direction):
 
