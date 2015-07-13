@@ -17,11 +17,15 @@ class Board(object):
         print ""
 
     def get_card(self, x, y):
-        return self.grid[x][y]
+        return self.grid[y][x]
 
     def set_card(self, x, y, value):
-        self.grid[x][y] = value
+        self.grid[y][x] = value
 
+    def replace_right_most_col(self, replacing_col):
+        """only ever replaces the right most column"""
+        for i in range(len(self.grid[0])):
+            self.grid[i][-1] = replacing_col[i]
 
     def new_random_board(self):
 
@@ -54,7 +58,7 @@ class Board(object):
 
     ### These will transform the board, prepping it for sliding then transforming it back when done.  
     def slide_board(self,slide_direction):
-
+            
         def rotate_board(board, clock):
             # counter goes right to left, top to bottom
             # clock goes left to right, bottom to top
@@ -133,17 +137,20 @@ class Board(object):
             # no rotation!
             print 'Sliding the board left!'
             self.grid = squish_board(self.grid)
+            """replace row/col"""
 
         elif slide_direction == 'down' or slide_direction == 's':
             print 'Sliding the board down!'
             self.grid = rotate_board(self.grid, True)
             self.grid = squish_board(self.grid)
+            """replace row/col"""
             self.grid = rotate_board(self.grid, False)
 
         elif slide_direction == 'up' or slide_direction == 'w':
             print 'Sliding the board up!'
             self.grid = rotate_board(self.grid, False)
             self.grid = squish_board(self.grid)
+            """replace row/col"""
             self.grid = rotate_board(self.grid, True)
 
         elif slide_direction == 'right' or slide_direction == 'd':
@@ -151,6 +158,7 @@ class Board(object):
             self.grid = rotate_board(self.grid, True)
             self.grid = rotate_board(self.grid, True)
             self.grid = squish_board(self.grid)
+            """replace row/col"""
             self.grid = rotate_board(self.grid, True)
             self.grid = rotate_board(self.grid, True)
         elif slide_direction == 'q':
