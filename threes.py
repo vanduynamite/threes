@@ -1,3 +1,4 @@
+import pdb
 import numpy
 import random
 
@@ -5,11 +6,12 @@ class Board(object):
 
 
     def __init__(self):
-         self.x_size = 4
-         self.y_size = 4
-         self.size= self.x_size * self.y_size
+        self.replacement_stack = []
+        self.x_size = 4
+        self.y_size = 4
+        self.size= self.x_size * self.y_size
 
-         self.grid = [[0 for i in range (0,self.y_size)] for j in range(0,self.x_size)]
+        self.grid = [[0 for i in range (0,self.y_size)] for j in range(0,self.x_size)]
 
     def display(self):
         print "Current Board:"
@@ -17,49 +19,54 @@ class Board(object):
         print ""
 
     def get_card(self, x, y):
-        return self.grid[x][y]
+        return self.grid[y][x]
 
     def set_card(self, x, y, value):
         self.grid[x][y] = value
 
+    def replace_empty_cards_in_col(self, replacing_cards):
+        column_needing_replacements = []
+        for i in range(len(self.grid[0])):
+            column_needing_replacements.append(self.grid[i][-1])
+        print column_needing_replacements
+            #self.grid[i][-1] = replacing_cards[i]
+        """
+        make list of cells to be replaced
+        decide where to put new cards and how many
+        """
 
     def new_random_board(self):
 
         def choose_random_position():
             rand_col = random.randint(0,self.x_size - 1)
             rand_row = random.randint(0,self.y_size - 1)
+            print "guess", "col: ", rand_col, "row: ", rand_row
             return rand_col, rand_row
 
-        def is_position_empty(position):
+        def position_is_empty(position):
             rand_col, rand_row = position
-            if self.grid[rand_col][rand_row] != 0:
-                return False
-            else:
-                return True
+            print "empty?", "is col:", rand_col, " row: ", rand_row
+            return self.grid[rand_col][rand_row] == 0
 
         def choose_random_empty_position():
             while True:
                 position = choose_random_position()
-                if is_position_empty(position) != False:
+                if position_is_empty(position):
                     break
             return position
     
         #random.seed(8)
-
+        #pdb.set_trace()
         populate_card_list = lambda num_threes, num_twos, num_ones: num_threes * [3] + num_twos * [2] + num_ones * [1]
-        numlist = populate_card_list(3, 3, 3)
-        for i in numlist:
+        cardlist = populate_card_list(5, 5, 5)
+        for i in cardlist:
             col, row = choose_random_empty_position()
+            self.display()
             self.set_card(col, row, i)
-
-    def new_set_board(self):
-        # if you want to define a board from the actual game
-        pass
-
 
     ### These will transform the board, prepping it for sliding then transforming it back when done.  
     def slide_board(self,slide_direction):
-
+            
         def rotate_board(board, clock):
             # counter goes right to left, top to bottom
             # clock goes left to right, bottom to top
@@ -96,7 +103,7 @@ class Board(object):
 
             def squish_list(num_row):
                 # will always squish a list to the left
-                insert_value = 0
+                insert_value = "replace holder"
                 first_num = num_row[0]
 
                 if first_num == 0:
@@ -138,17 +145,20 @@ class Board(object):
             # no rotation!
             print 'Sliding the board left!'
             self.grid = squish_board(self.grid)
+            """replace row/col"""
 
         elif slide_direction == 'down' or slide_direction == 's':
             print 'Sliding the board down!'
             self.grid = rotate_board(self.grid, True)
             self.grid = squish_board(self.grid)
+            """replace row/col"""
             self.grid = rotate_board(self.grid, False)
 
         elif slide_direction == 'up' or slide_direction == 'w':
             print 'Sliding the board up!'
             self.grid = rotate_board(self.grid, False)
             self.grid = squish_board(self.grid)
+            """replace row/col"""
             self.grid = rotate_board(self.grid, True)
 
         elif slide_direction == 'right' or slide_direction == 'd':
@@ -156,6 +166,7 @@ class Board(object):
             self.grid = rotate_board(self.grid, True)
             self.grid = rotate_board(self.grid, True)
             self.grid = squish_board(self.grid)
+            """replace row/col"""
             self.grid = rotate_board(self.grid, True)
             self.grid = rotate_board(self.grid, True)
         elif slide_direction == 'q':
@@ -164,6 +175,7 @@ class Board(object):
             print 'Not a valid direction, try again. Use a, s, d, w, or q to quit.'
 
         # Next up add new numbers to the added places. Don't know the exact algorithm for adding them though. If you play the game there's a definite something going on there.
+        """see line 26.  It's a new function that takes a list of replacement cards as an argument, this way we can make different types of generators later on"""
 
 
 def main():
