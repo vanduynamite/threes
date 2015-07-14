@@ -48,7 +48,7 @@ class Board(object):
         #random.seed(8)
         #pdb.set_trace()
         populate_card_list = lambda num_threes, num_twos, num_ones: num_threes * [3] + num_twos * [2] + num_ones * [1]
-        cardlist = populate_card_list(5, 5, 5)
+        cardlist = populate_card_list(5,5,5)
         for i in cardlist:
             col, row = choose_random_empty_position()
             self.display()
@@ -103,7 +103,7 @@ class Board(object):
 
             def squish_list(num_row):
                 # will always squish a list to the left
-                insert_value = "replace holder"
+                insert_value = 'placeholder'
                 first_num = num_row[0]
 
                 if first_num == 0:
@@ -178,17 +178,30 @@ class Board(object):
 
 
 def main():
-     for i in range(0,1):
-         my_board = Board()
-         my_board.new_random_board()
-         my_board.display()
-         direction = ''
-         while direction <> 'q':
-             direction = raw_input(">>>(a,s,d,w,q)>>>")
-             my_board.slide_board(direction)
-             if direction <> 'q':
-                my_board.display()
+     my_board = Board()
+     my_board.new_random_board()
+     my_board.display()
+     direction = ''
+     while direction <> 'q':
+         direction = raw_input(">>>(a,s,d,w,q)>>>")
+         my_board.slide_board(direction)
+         if direction <> 'q':
+            my_board.display()
 
+def test():
+    my_board = Board()
+    my_board.new_random_board()
+    my_board.display()
+    my_board.slide_board('a')
+    my_board.display()
+    print my_board.grid()
 
 if __name__ == "__main__":
-    main()
+    test() #main()
+
+
+
+
+
+
+
