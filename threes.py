@@ -190,7 +190,5 @@ def main():
                 my_board.display()
 
 
-
-
 if __name__ == "__main__":
     main()
