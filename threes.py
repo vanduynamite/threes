@@ -57,7 +57,7 @@ class Board(object):
     ### These will transform the board, prepping it for sliding then transforming it back when done.  
     def slide_board(self,slide_direction):
             
-        def replace_empty_cards_in_col(self, replacing_cards):
+        def replace_empty_cards_in_col(replacing_cards):
             column_needing_replacements = []
             for i in range(len(self.grid[0])):
                 column_needing_replacements.append(self.grid[i][-1])
