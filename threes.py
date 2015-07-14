@@ -1,3 +1,4 @@
+import pdb
 import numpy
 import random
 
@@ -21,39 +22,46 @@ class Board(object):
         return self.grid[y][x]
 
     def set_card(self, x, y, value):
-        self.grid[y][x] = value
+        self.grid[x][y] = value
 
     def replace_empty_cards_in_col(self, replacing_cards):
+        column_needing_replacements = []
         for i in range(len(self.grid[0])):
-            self.grid[i][-1] = replacing_cards[i]
+            column_needing_replacements.append(self.grid[i][-1])
+        print column_needing_replacements
+            #self.grid[i][-1] = replacing_cards[i]
+        """
+        make list of cells to be replaced
+        decide where to put new cards and how many
+        """
 
     def new_random_board(self):
 
         def choose_random_position():
             rand_col = random.randint(0,self.x_size - 1)
             rand_row = random.randint(0,self.y_size - 1)
+            print "guess", "col: ", rand_col, "row: ", rand_row
             return rand_col, rand_row
 
-        def is_position_empty(position):
+        def position_is_empty(position):
             rand_col, rand_row = position
-            if self.grid[rand_col][rand_row] != 0:
-                return False
-            else:
-                return True
+            print "empty?", "is col:", rand_col, " row: ", rand_row
+            return self.grid[rand_col][rand_row] == 0
 
         def choose_random_empty_position():
             while True:
                 position = choose_random_position()
-                if is_position_empty(position) != False:
+                if position_is_empty(position):
                     break
             return position
     
         #random.seed(8)
-
+        #pdb.set_trace()
         populate_card_list = lambda num_threes, num_twos, num_ones: num_threes * [3] + num_twos * [2] + num_ones * [1]
-        cardlist = populate_card_list(3, 3, 3)
+        cardlist = populate_card_list(5, 5, 5)
         for i in cardlist:
             col, row = choose_random_empty_position()
+            self.display()
             self.set_card(col, row, i)
 
     ### These will transform the board, prepping it for sliding then transforming it back when done.  
