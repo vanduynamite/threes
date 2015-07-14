@@ -23,10 +23,9 @@ class Board(object):
     def set_card(self, x, y, value):
         self.grid[y][x] = value
 
-    def replace_right_most_col(self, replacing_col):
-        """only ever replaces the right most column"""
+    def replace_empty_cards_in_col(self, replacing_cards):
         for i in range(len(self.grid[0])):
-            self.grid[i][-1] = replacing_col[i]
+            self.grid[i][-1] = replacing_cards[i]
 
     def new_random_board(self):
 
@@ -96,7 +95,7 @@ class Board(object):
 
             def squish_list(num_row):
                 # will always squish a list to the left
-                insert_value = 0
+                insert_value = "replace holder"
                 first_num = num_row[0]
 
                 if first_num == 0:
@@ -168,7 +167,7 @@ class Board(object):
             print 'Not a valid direction, try again. Use a, s, d, w, or q to quit.'
 
         # Next up add new numbers to the added places. Don't know the exact algorithm for adding them though. If you play the game there's a definite something going on there.
-        """see line 26.  It's a new function that takes a list as an argument, this way we can make different types of generators later on"""
+        """see line 26.  It's a new function that takes a list of replacement cards as an argument, this way we can make different types of generators later on"""
 
 
 def main():
