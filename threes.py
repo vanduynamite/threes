@@ -5,11 +5,12 @@ class Board(object):
 
 
     def __init__(self):
-         self.x_size = 4
-         self.y_size = 4
-         self.size= self.x_size * self.y_size
+        self.replacement_stack = []
+        self.x_size = 4
+        self.y_size = 4
+        self.size= self.x_size * self.y_size
 
-         self.grid = [[0 for i in range (0,self.y_size)] for j in range(0,self.x_size)]
+        self.grid = [[0 for i in range (0,self.y_size)] for j in range(0,self.x_size)]
 
     def display(self):
         print "Current Board:"
@@ -167,6 +168,7 @@ class Board(object):
             print 'Not a valid direction, try again. Use a, s, d, w, or q to quit.'
 
         # Next up add new numbers to the added places. Don't know the exact algorithm for adding them though. If you play the game there's a definite something going on there.
+        """see line 26.  It's a new function that takes a list as an argument, this way we can make different types of generators later on"""
 
 
 def main():
