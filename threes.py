@@ -19,7 +19,7 @@ class Board(object):
         print ""
 
     def get_card(self, x, y):
-        return self.grid[y][x]
+        return self.grid[x][y]
 
     def set_card(self, x, y, value):
         self.grid[x][y] = value
