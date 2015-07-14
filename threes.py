@@ -188,13 +188,13 @@ class Board(object):
          #if direction <> 'q':
             #my_board.display()
 
-def test():
-    my_board = Board()
-    my_board.new_random_board()
-    my_board.display()
-    my_board.slide_board('a')
-    my_board.display()
-    print my_board.grid()
+#def test():
+    #my_board = Board()
+    #my_board.new_random_board()
+    #my_board.display()
+    #my_board.slide_board('a')
+    #my_board.display()
+    #print my_board.grid()
 
 def test_ryan():
     my_board = Board()
