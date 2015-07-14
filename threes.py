@@ -177,16 +177,16 @@ class Board(object):
         # Next up add new numbers to the added places. Don't know the exact algorithm for adding them though. If you play the game there's a definite something going on there.
 
 
-def main():
-     my_board = Board()
-     my_board.new_random_board()
-     my_board.display()
-     direction = ''
-     while direction <> 'q':
-         direction = raw_input(">>>(a,s,d,w,q)>>>")
-         my_board.slide_board(direction)
-         if direction <> 'q':
-            my_board.display()
+#def main():
+     #my_board = Board()
+     #my_board.new_random_board()
+     #my_board.display()
+     #direction = ''
+     #while direction <> 'q':
+         #direction = raw_input(">>>(a,s,d,w,q)>>>")
+         #my_board.slide_board(direction)
+         #if direction <> 'q':
+            #my_board.display()
 
 def test():
     my_board = Board()
@@ -196,8 +196,16 @@ def test():
     my_board.display()
     print my_board.grid()
 
+def test_ryan():
+    my_board = Board()
+    my_board.new_random_board()
+    my_board.display()
+    my_board.slide_board('a')
+    my_board.display()
+    print my_board.grid()
+
 if __name__ == "__main__":
-    test() #main()
+    test_ryan() #main()
 
 
 
