@@ -24,16 +24,6 @@ class Board(object):
     def set_card(self, x, y, value):
         self.grid[x][y] = value
 
-    def replace_empty_cards_in_col(self, replacing_cards):
-        column_needing_replacements = []
-        for i in range(len(self.grid[0])):
-            column_needing_replacements.append(self.grid[i][-1])
-        print column_needing_replacements
-            #self.grid[i][-1] = replacing_cards[i]
-        """
-        make list of cells to be replaced
-        decide where to put new cards and how many
-        """
 
     def new_random_board(self):
 
@@ -45,7 +35,7 @@ class Board(object):
 
         def position_is_empty(position):
             rand_col, rand_row = position
-            print "empty?", "is col:", rand_col, " row: ", rand_row
+            print "    is empty?", " |", self.grid[rand_col][rand_row] == 0, "|"
             return self.grid[rand_col][rand_row] == 0
 
         def choose_random_empty_position():
@@ -67,6 +57,16 @@ class Board(object):
     ### These will transform the board, prepping it for sliding then transforming it back when done.  
     def slide_board(self,slide_direction):
             
+        def replace_empty_cards_in_col(self, replacing_cards):
+            column_needing_replacements = []
+            for i in range(len(self.grid[0])):
+                column_needing_replacements.append(self.grid[i][-1])
+            print column_needing_replacements
+                #self.grid[i][-1] = replacing_cards[i]
+            """
+            make list of cells to be replaced
+            decide where to put new cards and how many
+            """
         def rotate_board(board, clock):
             # counter goes right to left, top to bottom
             # clock goes left to right, bottom to top
@@ -175,7 +175,6 @@ class Board(object):
             print 'Not a valid direction, try again. Use a, s, d, w, or q to quit.'
 
         # Next up add new numbers to the added places. Don't know the exact algorithm for adding them though. If you play the game there's a definite something going on there.
-        """see line 26.  It's a new function that takes a list of replacement cards as an argument, this way we can make different types of generators later on"""
 
 
 def main():
