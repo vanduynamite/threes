@@ -197,29 +197,19 @@ class Board(object):
          #if direction <> 'q':
             #my_board.display()
 
-<<<<<<< HEAD
-#def test():
+#def test_paul():
     #my_board = Board()
     #my_board.new_random_board()
-    #my_board.display()
+    ##my_board.display()
     #my_board.slide_board('a')
     #my_board.display()
-    #print my_board.grid()
-=======
-def test_paul():
-    my_board = Board()
-    my_board.new_random_board()
-    #my_board.display()
-    my_board.slide_board('a')
-    my_board.display()
 
-    open_spots = []
+    #open_spots = []
 
-    for i in range(0,my_board.x_size):
-        if my_board.get_card(i,my_board.y_size-1) == 'placeholder':
-            open_spots.append(i)
+    #for i in range(0,my_board.x_size):
+        #if my_board.get_card(i,my_board.y_size-1) == 'placeholder':
+            #open_spots.append(i)
 
->>>>>>> b658f0822617fb3cdd9ec0fd0cd4f5f73db57dc5
 
 def test_ryan():
     my_board = Board()
