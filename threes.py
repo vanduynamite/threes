@@ -148,14 +148,11 @@ class Board(object):
             return board
 
         def slide_left():
-        #if slide_direction == 'left' or slide_direction == 'a':
-            # no rotation!
             print 'Sliding the board left!'
             self.grid = squish_board(self.grid)
             replace_empty_cards_in_col(self.grid)
 
         def slide_down():
-        #elif slide_direction == 'down' or slide_direction == 's':
             print 'Sliding the board down!'
             self.grid = rotate_board(self.grid, True)
             self.grid = squish_board(self.grid)
@@ -163,7 +160,6 @@ class Board(object):
             self.grid = rotate_board(self.grid, False)
 
         def slide_up():
-        #elif slide_direction == 'up' or slide_direction == 'w':
             print 'Sliding the board up!'
             self.grid = rotate_board(self.grid, False)
             self.grid = squish_board(self.grid)
@@ -171,7 +167,6 @@ class Board(object):
             self.grid = rotate_board(self.grid, True)
 
         def slide_right():
-        #elif slide_direction == 'right' or slide_direction == 'd':
             print 'Sliding the board right!'
             self.grid = rotate_board(self.grid, True)
             self.grid = rotate_board(self.grid, True)
@@ -180,10 +175,8 @@ class Board(object):
             self.grid = rotate_board(self.grid, True)
             self.grid = rotate_board(self.grid, True)
         def quit():
-        #elif slide_direction == 'q':
             print 'Thanks for playing!'
         def not_a_valid_choice():
-        #else:
             print 'Not a valid direction, try again. Use a, s, d, w, or q to quit.'
 
         # Next up add new numbers to the added places. Don't know the exact algorithm for adding them though. If you play the game there's a definite something going on there.
