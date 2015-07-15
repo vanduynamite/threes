@@ -39,10 +39,9 @@ class Board(object):
             return self.grid[rand_col][rand_row] == 0
 
         def choose_random_empty_position():
-            while True:
+            position = choose_random_position()
+            while not position_is_empty(position):
                 position = choose_random_position()
-                if position_is_empty(position):
-                    break
             return position
     
         #random.seed(8)
@@ -53,7 +52,6 @@ class Board(object):
             col, row = choose_random_empty_position()
             #self.display()
             self.set_card(col, row, i)
-
     ### These will transform the board, prepping it for sliding then transforming it back when done.  
     def slide_board(self,slide_direction):
             
@@ -109,7 +107,6 @@ class Board(object):
             return new_board
 
         def squish_board(board):
-
             def squish_list(num_row):
                 # will always squish a list to the left
                 insert_value = 'placeholder'
@@ -150,27 +147,31 @@ class Board(object):
 
             return board
 
-        if slide_direction == 'left' or slide_direction == 'a':
+        def slide_left():
+        #if slide_direction == 'left' or slide_direction == 'a':
             # no rotation!
             print 'Sliding the board left!'
             self.grid = squish_board(self.grid)
             replace_empty_cards_in_col(self.grid)
 
-        elif slide_direction == 'down' or slide_direction == 's':
+        def slide_down():
+        #elif slide_direction == 'down' or slide_direction == 's':
             print 'Sliding the board down!'
             self.grid = rotate_board(self.grid, True)
             self.grid = squish_board(self.grid)
             replace_empty_cards_in_col(self.grid)
             self.grid = rotate_board(self.grid, False)
 
-        elif slide_direction == 'up' or slide_direction == 'w':
+        def slide_up():
+        #elif slide_direction == 'up' or slide_direction == 'w':
             print 'Sliding the board up!'
             self.grid = rotate_board(self.grid, False)
             self.grid = squish_board(self.grid)
             replace_empty_cards_in_col(self.grid)
             self.grid = rotate_board(self.grid, True)
 
-        elif slide_direction == 'right' or slide_direction == 'd':
+        def slide_right():
+        #elif slide_direction == 'right' or slide_direction == 'd':
             print 'Sliding the board right!'
             self.grid = rotate_board(self.grid, True)
             self.grid = rotate_board(self.grid, True)
@@ -178,13 +179,29 @@ class Board(object):
             replace_empty_cards_in_col(self.grid)
             self.grid = rotate_board(self.grid, True)
             self.grid = rotate_board(self.grid, True)
-        elif slide_direction == 'q':
+        def quit():
+        #elif slide_direction == 'q':
             print 'Thanks for playing!'
-        else:
+        def not_a_valid_choice():
+        #else:
             print 'Not a valid direction, try again. Use a, s, d, w, or q to quit.'
 
         # Next up add new numbers to the added places. Don't know the exact algorithm for adding them though. If you play the game there's a definite something going on there.
 
+        slide_actions = {
+                'q':quit,
+                'a':slide_left,
+                'left':slide_left,
+                'd':slide_right,
+                'right':slide_right,
+                's':slide_down,
+                'down':slide_down,
+                'w':slide_up,
+                'up':slide_up}
+        if slide_direction in slide_actions:
+            slide_actions[slide_direction]()
+        else:
+            not_a_valid_choice()
 
 def main():
      my_board = Board()
