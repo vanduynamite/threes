@@ -74,32 +74,19 @@ class Board(object):
             else:
                 # if the list is only one item, return it
                 return num_row
-
         for i in range(0,len(self.grid)):
             self.grid[i] = squish_list(self.grid[i])
 
         # Why does this not work?????? Sometimes but not others...
         # for row in board:
         #     row = squish_list(row)
+    def rotate_clockwise(self):
+        self.rotate_board(0, self.y_size - 1, self.x_size, -1)
 
+    def rotate_counter_clockwise(self):
+        self.rotate_board(self.x_size - 1, 0, -1, self.y_size)
 
-    def rotate_board(self, clock):
-        # counter goes right to left, top to bottom
-        # clock goes left to right, bottom to top
-
-        if clock:
-            start_lat = 0
-            end_lat = self.x_size
-
-            start_long = self.y_size - 1
-            end_long = -1
-        else:
-            start_lat = self.x_size - 1
-            end_lat = -1
-
-            start_long = 0
-            end_long = self.y_size
-
+    def rotate_board(self, start_lat, start_long, end_lat, end_long):
         step_lat = numpy.sign(end_lat - start_lat)
         step_long = numpy.sign(end_long - start_long)
 
@@ -115,33 +102,34 @@ class Board(object):
 
         self.grid = new_board
 
-    def slide_left(self):
-        print 'Sliding the board left!'
+    def update_board(self):
         self.squish_board()
         self.replace_empty_cards_in_col(self.grid)
+
+
+    def slide_left(self):
+        print 'Sliding the board left!'
+        self.update_board()
 
     def slide_down(self):
         print 'Sliding the board down!'
-        self.rotate_board(True)
-        self.squish_board()
-        self.replace_empty_cards_in_col(self.grid)
-        self.rotate_board(False)
+        self.rotate_clockwise()
+        self.update_board()
+        self.rotate_counter_clockwise()
 
     def slide_up(self):
         print 'Sliding the board up!'
-        self.rotate_board(False)
-        self.squish_board()
-        self.replace_empty_cards_in_col(self.grid)
-        self.rotate_board(True)
+        self.rotate_counter_clockwise()
+        self.update_board()
+        self.rotate_clockwise()
 
     def slide_right(self):
         print 'Sliding the board right!'
-        self.rotate_board(True)
-        self.rotate_board(True)
-        self.squish_board()
-        self.replace_empty_cards_in_col(self.grid)
-        self.rotate_board(True)
-        self.rotate_board(True)
+        self.rotate_clockwise()
+        self.rotate_clockwise()
+        self.update_board()
+        self.rotate_clockwise()
+        self.rotate_clockwise()
 
     def quit(self):
         print 'Thanks for playing!'
