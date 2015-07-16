@@ -13,6 +13,7 @@ Data
 *.exe
 *.o
 *.so
+*.pyc
  
 # Packages #
 ############
