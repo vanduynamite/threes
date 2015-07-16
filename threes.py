@@ -77,9 +77,6 @@ class Board(object):
         for i in range(0,len(self.grid)):
             self.grid[i] = squish_list(self.grid[i])
 
-        # Why does this not work?????? Sometimes but not others...
-        # for row in board:
-        #     row = squish_list(row)
     def rotate_clockwise(self):
         self.rotate_board(0, self.y_size - 1, self.x_size, -1)
 
@@ -167,7 +164,6 @@ class Board(object):
             col, row = choose_random_empty_position()
             #self.display()
             self.set_card(col, row, i)
-    ### These will transform the board, prepping it for sliding then transforming it back when done.  
 
     def slide_board(self,slide_direction):
         slide_actions = {
