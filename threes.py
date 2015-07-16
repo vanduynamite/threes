@@ -24,19 +24,19 @@ class Board(object):
     def set_card(self, x, y, value):
         self.grid[x][y] = value
 
-    def replace_empty_cards_in_col(self, board):
+    def replace_empty_cards_in_col(self):
 
-        def find_rows_needing_replacement(board):
+        def find_rows_needing_replacement():
             open_spots = []
 
-            for i in range(0,len(board)):
-                row = board[i]
+            for i in range(0,len(self.grid)):
+                row = self.grid[i]
                 if row[len(row)-1] == 'placeholder':
                     open_spots.append(i)
     
             return open_spots
 
-        print find_rows_needing_replacement(board)
+        print find_rows_needing_replacement()
 
         """
         make list of cells to be replaced
@@ -104,8 +104,7 @@ class Board(object):
 
     def update_board(self):
         self.squish_board()
-        self.replace_empty_cards_in_col(self.grid)
-
+        self.replace_empty_cards_in_col()
 
     def slide_left(self):
         print 'Sliding the board left!'
