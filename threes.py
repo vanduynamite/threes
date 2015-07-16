@@ -142,12 +142,10 @@ class Board(object):
         def choose_random_position():
             rand_col = random.randint(0,self.x_size - 1)
             rand_row = random.randint(0,self.y_size - 1)
-            #print "guess", "col: ", rand_col, "row: ", rand_row
             return rand_col, rand_row
 
         def position_is_empty(position):
             rand_col, rand_row = position
-            #print "    is empty?", " |", self.grid[rand_col][rand_row] == 0, "|"
             return self.grid[rand_col][rand_row] == 0
 
         def choose_random_empty_position():
@@ -156,8 +154,6 @@ class Board(object):
                 position = choose_random_position()
             return position
     
-        #random.seed(8)
-        #pdb.set_trace()
         populate_card_list = lambda num_threes, num_twos, num_ones: num_threes * [3] + num_twos * [2] + num_ones * [1]
         cardlist = populate_card_list(5,5,5)
         for i in cardlist:
