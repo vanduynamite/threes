@@ -1,19 +1,22 @@
+import pdb
+import numpy
 import random
-random.seed(0)
+
 class Board(object):
 
 
-    def __init__(self, x_size, y_size):
-         self.x_size = 4
-         self.y_size = 4
-         self.size= x_size * y_size
+    def __init__(self):
+        self.replacement_stack = []
+        self.x_size = 4
+        self.y_size = 4
+        self.size= self.x_size * self.y_size
 
-         self.grid = [[0 for i in range (0,y_size)] for j in range(0,x_size)]
+        self.grid = [[0 for i in range (0,self.y_size)] for j in range(0,self.x_size)]
 
     def display(self):
-        #print self.grid
         print "Current Board:"
         for row in self.grid: print row
+        print ""
 
     def get_card(self, x, y):
         return self.grid[x][y]
@@ -21,113 +24,221 @@ class Board(object):
     def set_card(self, x, y, value):
         self.grid[x][y] = value
 
+    def replace_empty_cards_in_col(self, board):
+
+        def find_rows_needing_replacement(board):
+            open_spots = []
+
+            for i in range(0,len(board)):
+                row = board[i]
+                if row[len(row)-1] == 'placeholder':
+                    open_spots.append(i)
+    
+            return open_spots
+
+        print find_rows_needing_replacement(board)
+
+        """
+        make list of cells to be replaced
+        decide where to put new cards and how many
+        """
+
+    def squish_board(self):
+        def squish_list(num_row):
+            # will always squish a list to the left
+            insert_value = 'placeholder'
+            first_num = num_row[0]
+
+            if first_num == 0:
+                # if the first thing in the list is 0, return everything in the list to the right followed by a 0
+                num_row.pop(0)
+                num_row.append(insert_value)
+                return num_row
+        
+            elif len(num_row) > 1:
+                # if we're dealing with a list longer than 1 item...
+                second_num = num_row[1]
+                if first_num + second_num == 3 or (first_num != 1 and first_num != 2 and first_num == second_num):
+                    # if we can combine the first two in the list, do so and scoot the rest, add a 0 to the right
+                    num_row[0] = first_num + second_num
+                    num_row.pop(1)
+                    num_row.append(insert_value)
+                    return num_row
+        
+                else:
+                    # if they can't combine then call squish_list on the rest of the list and stick the first item back in the front (phrasing)
+                    num_row = squish_list(num_row[1:])
+                    num_row.insert(0,first_num)
+                    return num_row
+        
+            else:
+                # if the list is only one item, return it
+                return num_row
+
+        for i in range(0,len(self.grid)):
+            self.grid[i] = squish_list(self.grid[i])
+
+        # Why does this not work?????? Sometimes but not others...
+        # for row in board:
+        #     row = squish_list(row)
+
+
+    def rotate_board(self, clock):
+        # counter goes right to left, top to bottom
+        # clock goes left to right, bottom to top
+
+        if clock:
+            start_lat = 0
+            end_lat = self.x_size
+
+            start_long = self.y_size - 1
+            end_long = -1
+        else:
+            start_lat = self.x_size - 1
+            end_lat = -1
+
+            start_long = 0
+            end_long = self.y_size
+
+        step_lat = numpy.sign(end_lat - start_lat)
+        step_long = numpy.sign(end_long - start_long)
+
+        new_board = []
+
+        for i in range(start_lat, end_lat, step_lat):
+            sub_list = []
+
+            for j in range(start_long, end_long, step_long):
+                sub_list.append(self.grid[j][i])
+
+            new_board.append(sub_list)
+
+        self.grid = new_board
+
+    def slide_left(self):
+        print 'Sliding the board left!'
+        self.squish_board()
+        self.replace_empty_cards_in_col(self.grid)
+
+    def slide_down(self):
+        print 'Sliding the board down!'
+        self.rotate_board(True)
+        self.squish_board()
+        self.replace_empty_cards_in_col(self.grid)
+        self.rotate_board(False)
+
+    def slide_up(self):
+        print 'Sliding the board up!'
+        self.rotate_board(False)
+        self.squish_board()
+        self.replace_empty_cards_in_col(self.grid)
+        self.rotate_board(True)
+
+    def slide_right(self):
+        print 'Sliding the board right!'
+        self.rotate_board(True)
+        self.rotate_board(True)
+        self.squish_board()
+        self.replace_empty_cards_in_col(self.grid)
+        self.rotate_board(True)
+        self.rotate_board(True)
+
+    def quit(self):
+        print 'Thanks for playing!'
+
+    def not_a_valid_choice(self):
+        print 'Not a valid direction, try again. Use a, s, d, w, or q to quit.'
+
+        # Next up add new numbers to the added places. Don't know the exact algorithm for adding them though. If you play the game there's a definite something going on there.
+
+
+
     def new_random_board(self):
-        num_threes = 4
-        num_twos = 3
-        num_ones = 2
 
-        nums_to_place = []
+        def choose_random_position():
+            rand_col = random.randint(0,self.x_size - 1)
+            rand_row = random.randint(0,self.y_size - 1)
+            #print "guess", "col: ", rand_col, "row: ", rand_row
+            return rand_col, rand_row
 
-        for i in range(0,num_threes):
-            nums_to_place.append(3)
-        for i in range(0,num_twos):
-            nums_to_place.append(2)
-        for i in range(0,num_ones):
-            nums_to_place.append(1)
+        def position_is_empty(position):
+            rand_col, rand_row = position
+            #print "    is empty?", " |", self.grid[rand_col][rand_row] == 0, "|"
+            return self.grid[rand_col][rand_row] == 0
 
-        nums_placed = 0
-        
-        for i in nums_to_place:
-            
-            location = random.randint(0,self.size - nums_placed-1)
-            x_loc = location % self.y_size
-            y_loc = (location - x_loc) / self.y_size
-
-            while self.get_card(x_loc,y_loc) != 0:
-                location += 1
-                if location > self.size:
-                    location = 0 
-                x_loc = location % self.y_size
-                y_loc = (location - x_loc) / self.y_size
-
-            #print "Rand int between 0 and %d is %d: (%d, %d)" %(self.size-nums_placed,location, x_loc, y_loc)
-
-            self.set_card(x_loc, y_loc, i)
-
-            nums_placed += 1
-
-
-    def new_set_board(self):
-        pass
-
-
-
+        def choose_random_empty_position():
+            position = choose_random_position()
+            while not position_is_empty(position):
+                position = choose_random_position()
+            return position
+    
+        #random.seed(8)
+        #pdb.set_trace()
+        populate_card_list = lambda num_threes, num_twos, num_ones: num_threes * [3] + num_twos * [2] + num_ones * [1]
+        cardlist = populate_card_list(5,5,5)
+        for i in cardlist:
+            col, row = choose_random_empty_position()
+            #self.display()
+            self.set_card(col, row, i)
     ### These will transform the board, prepping it for sliding then transforming it back when done.  
-    def slide_board(self,direction):
-        # TODO
-        """ 
-        rotate board based on direction
-        combine cards if they're in [3*2^^i for i in range(0,n)] n can be generated with bisection to save time
-        
-        """
-        pass
-    def is_stationary(self, row, col):
-        """
-        is there a zero or a wall adjacent to the sliding direction?
-        """
-        if row + 1 >= len(self.grid) or col + 1 >= len(self.grid[0])  or (self.grid[row + 1][col] != 0 and self.grid[row + 1][col] != self.grid[row][col]):
-            print "row is ", row
-            print "col is ", col 
-            print "returned true"
-            print "len self.grid is ",len(self.grid[0])
-            return True
 
-
-    def combine_cards(self, stationary_card, moving_card):
-        if stationary_card == moving_card:
-            stationary_card += moving_card
-
-    def transform_board(self, board, swipe_direction):
-        return board_transformed
-        pass
-
-        def arrays_to_matrix():
-            pass
-
-        def rotate_left_90():
-            pass
-
-        def rotate_right_90():
-            pass
-
-        def rotate_180():
-            pass
-
-    def transform_board_back():
-        return board_transformed_back
-        pass
-
-#class BoardTransformed(Board):
-#    def __init__(self, x_size, y_size):
-#         self.x_size = 4
-#         self.y_size = 4
-#         self.size= x_size * y_size
-#
-#         self.grid = [[0 for i in range (0,y_size)] for j in range(0,x_size)]
-#class BoardTransformed0Degrees(Board):
-#class BoardTransformed90Degrees(Board):
-#class BoardTransformed180Degrees(Board):
-#class BoardTransformed270Degrees(Board):
-
-
+    def slide_board(self,slide_direction):
+        slide_actions = {
+                'q':quit,
+                'a':self.slide_left,
+                'left':self.slide_left,
+                'd':self.slide_right,
+                'right':self.slide_right,
+                's':self.slide_down,
+                'down':self.slide_down,
+                'w':self.slide_up,
+                'up':self.slide_up}
+        if slide_direction in slide_actions:
+            slide_actions[slide_direction]()
+        else:
+            not_a_valid_choice()
 
 def main():
-    for i in range(0,1):
-        my_board = Board(4,4)
-        my_board.new_random_board()
-        my_board.display()
-        my_board.is_stationary(3,4)
+     my_board = Board()
+     my_board.new_random_board()
+     my_board.display()
+     direction = ''
+     while direction <> 'q':
+         direction = raw_input(">>>(a,s,d,w,q)>>>")
+         my_board.slide_board(direction)
+         if direction <> 'q':
+             my_board.display()
 
+#def test_paul():
+    #my_board = Board()
+    #my_board.new_random_board()
+    ##my_board.display()
+    #my_board.slide_board('a')
+    #my_board.display()
+
+    #open_spots = []
+
+    #for i in range(0,my_board.x_size):
+        #if my_board.get_card(i,my_board.y_size-1) == 'placeholder':
+            #open_spots.append(i)
+
+
+#def test_ryan():
+    #my_board = Board()
+    #my_board.new_random_board()
+    #my_board.display()
+    #my_board.slide_board('a')
+    #my_board.display()
+    #print my_board.grid()
 
 if __name__ == "__main__":
+    #test_paul() 
     main()
+
+
+
+
+
+
+
+
