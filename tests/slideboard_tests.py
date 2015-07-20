@@ -1,8 +1,22 @@
 from nose.tools import *
-from threes import *
+#import main
+import threes
 
-# Board tests cases
+def setup():
+    threes.new_game()
+    print "SETUP!"
 
-test_board = Board(4,4)
+def teardown():
+    print "TEAR DOWN!"
 
-test_board.display()
+def test_basic():
+    print "I RAN!"
+
+def test_quit():
+    slide_board("q")
+
+
+
+setup()
+#test_quit()
+teardown()
