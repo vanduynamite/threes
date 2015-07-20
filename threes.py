@@ -177,16 +177,19 @@ class Board(object):
         else:
             not_a_valid_choice()
 
+def new_game():
+    my_board = Board()
+    my_board.new_random_board()
+
 def main():
-     my_board = Board()
-     my_board.new_random_board()
-     my_board.display()
-     direction = ''
-     while direction <> 'q':
-         direction = raw_input(">>>(a,s,d,w,q)>>>")
-         my_board.slide_board(direction)
-         if direction <> 'q':
-             my_board.display()
+    new_game()
+    my_board.display()
+    direction = ''
+    while direction <> 'q':
+        direction = raw_input(">>>(a,s,d,w,q)>>>")
+        my_board.slide_board(direction)
+        if direction <> 'q':
+            my_board.display()
 
 #def test_paul():
     #my_board = Board()
