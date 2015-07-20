@@ -177,9 +177,6 @@ class Board(object):
         else:
             not_a_valid_choice()
 
-def new_game():
-    my_board = Board()
-    my_board.new_random_board()
 
 def main():
     new_game()
