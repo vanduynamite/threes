@@ -178,8 +178,10 @@ class Board(object):
             not_a_valid_choice()
 
 
+
 def main():
-    new_game()
+    my_board = Board()
+    my_board.new_random_board()
     my_board.display()
     direction = ''
     while direction <> 'q':
