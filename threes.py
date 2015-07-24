@@ -3,14 +3,14 @@ import numpy
 import random
 
 class Board(object):
-
-
     def __init__(self):
+        self.default_replacement_stack = [1,1,1,1,2,2,2,2,3,3,3,3]
         self.replacement_stack = []
+        self.replacement_stage_size = 1
+        self.replacement_stage = []
         self.x_size = 4
         self.y_size = 4
         self.size= self.x_size * self.y_size
-
         self.grid = [[0 for i in range (0,self.y_size)] for j in range(0,self.x_size)]
 
     def display(self):
@@ -24,24 +24,56 @@ class Board(object):
     def set_card(self, x, y, value):
         self.grid[x][y] = value
 
-    def replace_empty_cards_in_col(self):
+    def find_rows_needing_replacement(self):
+        place_holder_locations = []
+        for i in range(0,len(self.grid)):
+            row = self.grid[i]
+            if row[-1] == 'placeholder':
+                place_holder_locations.append(i)
+        return place_holder_locations
 
-        def find_rows_needing_replacement():
-            open_spots = []
-
-            for i in range(0,len(self.grid)):
-                row = self.grid[i]
-                if row[len(row)-1] == 'placeholder':
-                    open_spots.append(i)
+    def choose_cards_from_replacement_stack_list(self, num_cards=1):
+        replacement_cards = []
+        for i in range(num_cards):
+            replacement_cards.append(self.replacement_stage.pop(0))
+        return replacement_cards
     
-            return open_spots
+    def choose_placement_for_new_cards(self, placeholder_locations, replacement_cards):
+        card_insert_locations = []
+        for i in replacement_cards:
+        #for i in xrange(replacement_cards):
+            card_insert_locations.append(random.randrange(0,len(placeholder_locations)))
+        return card_insert_locations
 
-        print find_rows_needing_replacement()
+    def place_new_cards(self, card_insert_locations, replacement_cards):
+        for i in card_insert_locations:
+            self.grid[i][-1] = replacement_cards.pop(0)
 
-        """
-        make list of cells to be replaced
-        decide where to put new cards and how many
-        """
+    def replace_remaining_placeholders_with_zeros(self):
+        for i in range(len(self.grid)):
+            if self.grid[i][-1] == "placeholder":
+                self.grid[i][-1] = 0
+
+    def update_replacement_stage(self):
+        if len(self.replacement_stage) < 1:
+            for i in range(self.replacement_stage_size):
+                replacement_stack_length = len(self.replacement_stack)
+                random_selection_from_stack = random.randrange(0, replacement_stack_length)
+                card_from_stack = self.replacement_stack.pop(random_selection_from_stack)
+                self.replacement_stage.append(card_from_stack)
+
+    def update_replacement_stack(self):
+        if len(self.replacement_stack) < 1:
+            self.replacement_stack = self.default_replacement_stack
+
+    def replace_cards(self):
+        self.update_replacement_stack()
+        self.update_replacement_stage()
+        placeholder_locations = self.find_rows_needing_replacement()
+        replacement_cards = self.choose_cards_from_replacement_stack_list()
+        card_insert_locations = self.choose_placement_for_new_cards(placeholder_locations, replacement_cards)
+        self.place_new_cards(card_insert_locations, replacement_cards)
+        self.replace_remaining_placeholders_with_zeros()
 
     def squish_board(self):
         def squish_list(num_row):
@@ -101,7 +133,8 @@ class Board(object):
 
     def update_board(self):
         self.squish_board()
-        self.replace_empty_cards_in_col()
+        self.replace_cards()
+        self.update_replacement_stack()
 
     def slide_left(self):
         print 'Sliding the board left!'
