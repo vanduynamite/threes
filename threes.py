@@ -32,7 +32,7 @@ class Board(object):
                 place_holder_locations.append(i)
         return place_holder_locations
 
-    def choose_cards_from_replacement_stack_list(self, num_cards=1):
+    def stage_new_cards(self, num_cards=1):
         replacement_cards = []
         for i in range(num_cards):
             replacement_cards.append(self.replacement_stage.pop(0))
@@ -70,7 +70,7 @@ class Board(object):
         self.update_replacement_stack()
         self.update_replacement_stage()
         placeholder_locations = self.find_rows_needing_replacement()
-        replacement_cards = self.choose_cards_from_replacement_stack_list()
+        replacement_cards = self.stage_new_cards()
         card_insert_locations = self.choose_placement_for_new_cards(placeholder_locations, replacement_cards)
         self.place_new_cards(card_insert_locations, replacement_cards)
         self.replace_remaining_placeholders_with_zeros()
