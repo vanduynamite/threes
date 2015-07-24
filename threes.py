@@ -41,7 +41,6 @@ class Board(object):
     def choose_placement_for_new_cards(self, placeholder_locations, replacement_cards):
         card_insert_locations = []
         for i in replacement_cards:
-        #for i in xrange(replacement_cards):
             card_insert_locations.append(random.randrange(0,len(placeholder_locations)))
         return card_insert_locations
 
@@ -67,6 +66,7 @@ class Board(object):
             self.replacement_stack = self.default_replacement_stack
 
     def replace_cards(self):
+        """did board slide?, if not do nothing"""
         self.update_replacement_stack()
         self.update_replacement_stage()
         placeholder_locations = self.find_rows_needing_replacement()
