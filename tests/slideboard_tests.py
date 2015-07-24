@@ -6,9 +6,6 @@ def setup():
     board = threes.Board()
 
 
-    print "SETUP!"
-
-
 def teardown():
     print "TEAR DOWN!"
 
