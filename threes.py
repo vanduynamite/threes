@@ -38,15 +38,15 @@ class Board(object):
             replacement_cards.append(self.replacement_stage.pop(0))
         return replacement_cards
     
-    def choose_placement_for_new_cards(self, placeholder_locations, replacement_cards):
+    def choose_placement_for_new_cards(self, placeholder_locations, cards_without_location):
         card_insert_locations = []
-        for i in replacement_cards:
+        for i in cards_without_location:
             card_insert_locations.append(random.randrange(0,len(placeholder_locations)))
         return card_insert_locations
 
-    def place_new_cards(self, card_insert_locations, replacement_cards):
+    def place_staged_cards(self, card_insert_locations, cards_to_be_staged):
         for i in card_insert_locations:
-            self.grid[i][-1] = replacement_cards.pop(0)
+            self.grid[i][-1] = cards_to_be_staged.pop(0)
 
     def replace_remaining_placeholders_with_zeros(self):
         for i in range(len(self.grid)):
@@ -70,9 +70,9 @@ class Board(object):
         self.update_replacement_stack()
         self.update_replacement_stage()
         placeholder_locations = self.find_rows_needing_replacement()
-        replacement_cards = self.stage_new_cards()
-        card_insert_locations = self.choose_placement_for_new_cards(placeholder_locations, replacement_cards)
-        self.place_new_cards(card_insert_locations, replacement_cards)
+        staged_cards = self.stage_new_cards()
+        card_insert_locations = self.choose_placement_for_new_cards(placeholder_locations, staged_cards)
+        self.place_staged_cards(card_insert_locations, staged_cards)
         self.replace_remaining_placeholders_with_zeros()
 
     def squish_board(self):
@@ -134,7 +134,6 @@ class Board(object):
     def update_board(self):
         self.squish_board()
         self.replace_cards()
-        self.update_replacement_stack()
 
     def slide_left(self):
         print 'Sliding the board left!'
