@@ -32,19 +32,20 @@ class Board(object):
                 place_holder_locations.append(i)
         return place_holder_locations
 
-    def stage_new_cards(self, stage_size=1):
+    def queue_cards_from_stage(self, stage_size=1):
         replacement_cards = []
         for i in range(stage_size):
             replacement_cards.append(self.replacement_stage.pop(0))
         return replacement_cards
     
-    def choose_placement_for_new_cards(self, placeholder_locations, cards_without_location):
+    def choose_placement_for_queued_cards(self, cards_without_location):
+        placeholder_locations = self.find_rows_needing_replacement()
         card_insert_locations = []
         for i in cards_without_location:
             card_insert_locations.append(random.randrange(0,len(placeholder_locations)))
         return card_insert_locations
 
-    def place_staged_cards(self, card_insert_locations, cards_to_be_placed):
+    def place_queued_cards(self, card_insert_locations, cards_to_be_placed):
         for i in card_insert_locations:
             self.grid[i][-1] = cards_to_be_placed.pop(0)
 
@@ -53,7 +54,7 @@ class Board(object):
             if self.grid[i][-1] == "placeholder":
                 self.grid[i][-1] = 0
 
-    def update_replacement_stage(self):
+    def update_stage(self):
         if len(self.replacement_stage) < self.replacement_stage_size:
             for i in range(self.replacement_stage_size):
                 replacement_stack_length = len(self.replacement_stack)
@@ -68,11 +69,10 @@ class Board(object):
     def replace_cards(self):
         """did board slide?, if not do nothing"""
         self.update_replacement_stack()
-        self.update_replacement_stage()
-        placeholder_locations = self.find_rows_needing_replacement()
-        staged_cards = self.stage_new_cards()
-        card_insert_locations = self.choose_placement_for_new_cards(placeholder_locations, staged_cards)
-        self.place_staged_cards(card_insert_locations, staged_cards)
+        self.update_stage()
+        staged_cards = self.queue_cards_from_stage()
+        card_insert_locations = self.choose_placement_for_queued_cards(staged_cards)
+        self.place_queued_cards(card_insert_locations, staged_cards)
         self.replace_remaining_placeholders_with_zeros()
 
     def squish_board(self):
