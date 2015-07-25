@@ -32,9 +32,9 @@ class Board(object):
                 place_holder_locations.append(i)
         return place_holder_locations
 
-    def stage_new_cards(self, num_cards=1):
+    def stage_new_cards(self, stage_size=1):
         replacement_cards = []
-        for i in range(num_cards):
+        for i in range(stage_size):
             replacement_cards.append(self.replacement_stage.pop(0))
         return replacement_cards
     
@@ -44,9 +44,9 @@ class Board(object):
             card_insert_locations.append(random.randrange(0,len(placeholder_locations)))
         return card_insert_locations
 
-    def place_staged_cards(self, card_insert_locations, cards_to_be_staged):
+    def place_staged_cards(self, card_insert_locations, cards_to_be_placed):
         for i in card_insert_locations:
-            self.grid[i][-1] = cards_to_be_staged.pop(0)
+            self.grid[i][-1] = cards_to_be_placed.pop(0)
 
     def replace_remaining_placeholders_with_zeros(self):
         for i in range(len(self.grid)):
@@ -54,7 +54,7 @@ class Board(object):
                 self.grid[i][-1] = 0
 
     def update_replacement_stage(self):
-        if len(self.replacement_stage) < 1:
+        if len(self.replacement_stage) < self.replacement_stage_size:
             for i in range(self.replacement_stage_size):
                 replacement_stack_length = len(self.replacement_stack)
                 random_selection_from_stack = random.randrange(0, replacement_stack_length)
