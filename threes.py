@@ -197,7 +197,7 @@ class Board(object):
 
     def slide_board(self,slide_direction):
         slide_actions = {
-                'q':quit,
+                'q':self.quit,
                 'a':self.slide_left,
                 'left':self.slide_left,
                 'd':self.slide_right,
