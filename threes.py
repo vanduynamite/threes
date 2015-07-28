@@ -132,7 +132,11 @@ class Board(object):
 
     def update_board(self):
         self.update_replacement_stack()
+<<<<<<< HEAD
         if self.is_board_slideable():
+=======
+        if self.is_board_slideable:
+>>>>>>> 88a693218284e99230e42558b946c82046487622
             self.squish_board()
             self.replace_cards()
         else:
