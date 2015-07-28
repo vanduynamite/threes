@@ -66,11 +66,10 @@ class Board(object):
 
     def update_replacement_stack(self):
         if len(self.replacement_stack) < 1:
-            self.replacement_stack = self.default_replacement_stack
+            self.replacement_stack.extend(self.default_replacement_stack)
 
     def replace_cards(self):
         """did board slide?, if not do nothing"""
-        self.update_replacement_stack()
         self.update_stage()
         self.place_queued_cards()
         self.replace_remaining_placeholders_with_zeros()
@@ -132,6 +131,7 @@ class Board(object):
         self.grid = new_board
 
     def update_board(self):
+        self.update_replacement_stack()
         self.squish_board()
         self.replace_cards()
 
@@ -186,7 +186,7 @@ class Board(object):
             return position
     
         populate_card_list = lambda num_threes, num_twos, num_ones: num_threes * [3] + num_twos * [2] + num_ones * [1]
-        cardlist = populate_card_list(5,5,5)
+        cardlist = populate_card_list(3,3,3)
         for i in cardlist:
             col, row = choose_random_empty_position()
             #self.display()
