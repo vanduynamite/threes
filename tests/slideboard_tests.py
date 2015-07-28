@@ -5,7 +5,7 @@ import threes
 def setup():
     global board
     board = threes.Board()
-    board.choose_placement_for_queued_cards = lambda replacement_cards: [0]
+    board.choose_placement_for_queued_cards = lambda : [0]
 
 def teardown():
     print "TEAR DOWN!"
