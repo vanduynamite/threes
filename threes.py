@@ -165,7 +165,6 @@ class Board(object):
     def not_a_valid_choice(self):
         print 'Not a valid direction, try again. Use a, s, d, w, or q to quit.'
 
-        # Next up add new numbers to the added places. Don't know the exact algorithm for adding them though. If you play the game there's a definite something going on there.
 
 
 
