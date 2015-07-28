@@ -208,6 +208,21 @@ class Board(object):
         else:
             not_a_valid_choice()
 
+    def is_board_slideable(self):
+        pre_slide_grid = self.grid
+        for slide in [
+                self.slide_left,
+                self.slide_down,
+                self.slide_up,
+                self.slide_right]:
+            self.grid = pre_slide_grid
+            slide()
+            return 
+
+        """slides the board in all directions"""
+        """returns which directions the board can be slid in"""
+        
+        pass
 
 
 def main():
@@ -215,10 +230,10 @@ def main():
     my_board.new_random_board()
     my_board.display()
     direction = ''
-    while direction <> 'q':
+    while direction != 'q':
         direction = raw_input(">>>(a,s,d,w,q)>>>")
         my_board.slide_board(direction)
-        if direction <> 'q':
+        if direction != 'q':
             my_board.display()
 
 #def test_paul():
