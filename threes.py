@@ -132,8 +132,11 @@ class Board(object):
 
     def update_board(self):
         self.update_replacement_stack()
-        self.squish_board()
-        self.replace_cards()
+        if self.is_board_slideable:
+            self.squish_board()
+            self.replace_cards()
+        else:
+            print "Sorry Fool, you can't slide that way"
 
     def slide_left(self):
         print 'Sliding the board left!'
@@ -210,14 +213,11 @@ class Board(object):
 
     def is_board_slideable(self):
         pre_slide_grid = self.grid
-        for slide in [
-                self.slide_left,
-                self.slide_down,
-                self.slide_up,
-                self.slide_right]:
-            self.grid = pre_slide_grid
-            slide()
-            return 
+        self.squish_board()
+
+        placeholder_locations = self.find_rows_needing_replacement()
+        return len(placeholder_locations) != 0
+        self.grid = pre_slide_grid
 
         """slides the board in all directions"""
         """returns which directions the board can be slid in"""
@@ -231,6 +231,7 @@ def main():
     my_board.display()
     direction = ''
     while direction != 'q':
+        """can_you_even_slide_bro?"""
         direction = raw_input(">>>(a,s,d,w,q)>>>")
         my_board.slide_board(direction)
         if direction != 'q':
