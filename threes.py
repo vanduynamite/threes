@@ -209,7 +209,7 @@ class Board(object):
         if slide_direction in slide_actions:
             slide_actions[slide_direction]()
         else:
-            not_a_valid_choice()
+            self.not_a_valid_choice()
 
     def is_board_slideable(self):
         pre_slide_grid = self.grid
