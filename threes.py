@@ -78,10 +78,11 @@ class Board(object):
     def squish_board(self):
         def squish_list(num_row):
             # will always squish a list to the left
+
             insert_value = 'placeholder'
             first_num = num_row[0]
 
-            if first_num == 0:
+            if first_num == 0 and sum(x for x in num_row) != 0:
                 # if the first thing in the list is 0, return everything in the list to the right followed by a 0
                 num_row.pop(0)
                 num_row.append(insert_value)
@@ -90,7 +91,9 @@ class Board(object):
             elif len(num_row) > 1:
                 # if we're dealing with a list longer than 1 item...
                 second_num = num_row[1]
-                if first_num + second_num == 3 or (first_num != 1 and first_num != 2 and first_num == second_num):
+
+                #print num_row, first_num, second_num
+                if first_num + second_num == 3 or (first_num != 0 and first_num != 1 and first_num != 2 and first_num == second_num):
                     # if we can combine the first two in the list, do so and scoot the rest, add a 0 to the right
                     num_row[0] = first_num + second_num
                     num_row.pop(1)
@@ -190,11 +193,14 @@ class Board(object):
             return position
     
         populate_card_list = lambda num_threes, num_twos, num_ones: num_threes * [3] + num_twos * [2] + num_ones * [1]
-        cardlist = populate_card_list(3,3,3)
+        cardlist = populate_card_list(0,16,0)
         for i in cardlist:
             col, row = choose_random_empty_position()
             #self.display()
             self.set_card(col, row, i)
+
+    def new_set_board(self):
+        self.grid = [[12, 6, 3, 1],[48,24,6,3],[12,2,2,3],[2, 2, 0, 0]]
 
     def slide_board(self,slide_direction):
         slide_actions = {
@@ -230,7 +236,7 @@ class Board(object):
 
 def main():
     my_board = Board()
-    my_board.new_random_board()
+    my_board.new_set_board()
     my_board.display()
     direction = ''
     while direction != 'q':
