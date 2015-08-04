@@ -1,6 +1,7 @@
 import pdb
 import numpy
 import random
+import copy # I know I'm sorry....
 
 class Board(object):
     def __init__(self):
@@ -132,7 +133,7 @@ class Board(object):
 
     def update_board(self):
         self.update_replacement_stack()
-        if self.is_board_slideable():
+        if self.is_board_squishable():
             self.squish_board()
             self.replace_cards()
         else:
@@ -211,18 +212,20 @@ class Board(object):
         else:
             not_a_valid_choice()
 
-    def is_board_slideable(self):
-        pre_slide_grid = self.grid
+    def is_board_squishable(self):
+        pre_slide_grid = copy.deepcopy(self.grid)
         self.squish_board()
 
         placeholder_locations = self.find_rows_needing_replacement()
+        self.grid = copy.deepcopy(pre_slide_grid)
         return len(placeholder_locations) != 0
-        self.grid = pre_slide_grid
 
+
+    def is_board_slideable_at_all(self):
         """slides the board in all directions"""
         """returns which directions the board can be slid in"""
-        
         pass
+        
 
 
 def main():
