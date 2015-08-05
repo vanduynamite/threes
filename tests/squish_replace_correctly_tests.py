@@ -5,7 +5,6 @@ import threes
 def setup():
     global board
     board = threes.Board()
-    board.choose_placement_for_queued_cards = lambda : [0]
 
 def teardown():
     print "TEAR DOWN!"
@@ -29,7 +28,6 @@ def test_slide_left():
 
     board.slide_left()
     assert_equal(board.grid, slid_board)
-
 
 
 
