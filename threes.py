@@ -42,16 +42,20 @@ class Board(object):
     def choose_placement_for_queued_cards(self):
         placeholder_locations = self.find_rows_needing_replacement()
         card_insert_locations = []
-        for i in range(len(placeholder_locations)):
+        #print "card insert location in choose placement is: ", card_insert_locations
+        #print "placeholder_locations in  choose placement is: ", placeholder_locations
+        for i in range(self.replacement_stage_size):
             card_insert_locations.append(random.choice(placeholder_locations))
-        print "card insert location is" , card_insert_locations
-        print "card insert location type" , type(card_insert_locations)
+        #print "card insert location in choose placement after loop is: ", card_insert_locations
+        #print "placeholder_locations in  choose placement after loop is: ", placeholder_locations
         return card_insert_locations
 
     def place_queued_cards(self):
         cards_to_be_placed = self.queue_cards_from_stage()
         card_insert_locations = self.choose_placement_for_queued_cards()
+        print "card insert locations are: ", card_insert_locations
         for i in card_insert_locations:
+            #pdb.set_trace()
             self.grid[i][-1] = cards_to_be_placed.pop(0)
 
     def replace_remaining_placeholders_with_zeros(self):
