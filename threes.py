@@ -81,6 +81,7 @@ class Board(object):
 
             insert_value = 'placeholder'
             first_num = num_row[0]
+            #print num_row
 
             if first_num == 0 and sum(x for x in num_row) != 0:
                 # if the first thing in the list is 0, return everything in the list to the right followed by a 0
@@ -109,8 +110,10 @@ class Board(object):
             else:
                 # if the list is only one item, return it
                 return num_row
+
         for i in range(0,len(self.grid)):
             self.grid[i] = squish_list(self.grid[i])
+        self.display()
 
     def rotate_clockwise(self):
         self.rotate_board(0, self.y_size - 1, self.x_size, -1)
@@ -193,14 +196,14 @@ class Board(object):
             return position
     
         populate_card_list = lambda num_threes, num_twos, num_ones: num_threes * [3] + num_twos * [2] + num_ones * [1]
-        cardlist = populate_card_list(0,16,0)
+        cardlist = populate_card_list(3,3,3)
         for i in cardlist:
             col, row = choose_random_empty_position()
             #self.display()
             self.set_card(col, row, i)
 
     def new_set_board(self):
-        self.grid = [[12, 6, 3, 1],[48,24,6,3],[12,2,2,3],[2, 2, 0, 0]]
+        self.grid = [[6,1,24,2],[3,12,48,3],[2,12,3,0],[3,0,0,0]]
 
     def slide_board(self,slide_direction):
         slide_actions = {
