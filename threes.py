@@ -213,7 +213,7 @@ class Board(object):
             self.set_card(col, row, i)
 
     def new_set_board(self):
-        self.grid = [[2,12,3,0],[3,0,0,0]]
+        self.grid = [[24,2,6,2],[12,2,0,0],[1,6,0,0],[0,2,0,0]]
 
     def slide_board(self,slide_direction):
         slide_actions = {
@@ -249,7 +249,7 @@ class Board(object):
 
 def main():
     my_board = Board()
-    my_board.new_random_board()
+    my_board.new_set_board()
     my_board.display()
     direction = ''
     while direction != 'q':
