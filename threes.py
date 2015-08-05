@@ -76,6 +76,7 @@ class Board(object):
         self.replace_remaining_placeholders_with_zeros()
 
     def squish_board(self):
+
         def squish_list(num_row):
             # will always squish a list to the left
             #pdb.set_trace()
@@ -94,7 +95,7 @@ class Board(object):
                 second_num = num_row[1]
 
                 #print num_row, first_num, second_num
-                if (first_num != 0 and second_num != 0) and (first_num + second_num == 3 or (first_num != 1 and first_num != 2 and first_num == second_num)):
+                if is_addable(first_num, second_num):
                     # if we can combine the first two in the list, do so and scoot the rest, add a 0 to the right
                     num_row[0] = first_num + second_num
                     num_row.pop(1)
@@ -111,9 +112,18 @@ class Board(object):
                 # if the list is only one item, return it
                 return num_row
 
+        def is_addable(first_num, second_num):
+            if first_num != 0 and second_num != 0 and first_num + second_num == 3:
+                # in this case the numbers are 1 and 2 (or 2 and 1)
+                return True
+            elif first_num != 0 and first_num != 1 and second_num != 2 and first_num == second_num:
+                # in this case the numbers are not 0, 1, or 2, but are the same, so can be added
+                return True
+            else:
+                return False
+
         for i in range(0,len(self.grid)):
             self.grid[i] = squish_list(self.grid[i])
-        self.display()
 
     def rotate_clockwise(self):
         self.rotate_board(0, self.y_size - 1, self.x_size, -1)
@@ -239,7 +249,7 @@ class Board(object):
 
 def main():
     my_board = Board()
-    my_board.new_set_board()
+    my_board.new_random_board()
     my_board.display()
     direction = ''
     while direction != 'q':
