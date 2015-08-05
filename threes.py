@@ -78,7 +78,7 @@ class Board(object):
     def squish_board(self):
         def squish_list(num_row):
             # will always squish a list to the left
-
+            #pdb.set_trace()
             insert_value = 'placeholder'
             first_num = num_row[0]
             #print num_row
@@ -94,7 +94,7 @@ class Board(object):
                 second_num = num_row[1]
 
                 #print num_row, first_num, second_num
-                if first_num + second_num == 3 or (first_num != 0 and first_num != 1 and first_num != 2 and first_num == second_num):
+                if (first_num != 0 and second_num != 0) and (first_num + second_num == 3 or (first_num != 1 and first_num != 2 and first_num == second_num)):
                     # if we can combine the first two in the list, do so and scoot the rest, add a 0 to the right
                     num_row[0] = first_num + second_num
                     num_row.pop(1)
@@ -203,7 +203,7 @@ class Board(object):
             self.set_card(col, row, i)
 
     def new_set_board(self):
-        self.grid = [[6,1,24,2],[3,12,48,3],[2,12,3,0],[3,0,0,0]]
+        self.grid = [[2,12,3,0],[3,0,0,0]]
 
     def slide_board(self,slide_direction):
         slide_actions = {
