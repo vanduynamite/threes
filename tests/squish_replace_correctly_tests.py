@@ -33,6 +33,7 @@ def test_slide_left():
 
 
 
-setup()
-test_slide_left()
-teardown()
+for i in range(100):
+    setup()
+    test_slide_left()
+    teardown()
