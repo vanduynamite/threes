@@ -269,6 +269,7 @@ class Board(object):
 
 def main():
     my_board = Board()
+    my_board.new_random_board()
     #my_board.new_set_board()
     my_board.display()
     direction = ''
