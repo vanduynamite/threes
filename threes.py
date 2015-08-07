@@ -219,7 +219,13 @@ class Board(object):
             self.set_card(col, row, i)
 
     def new_set_board(self):
-        self.grid = [[24,2,6,2],[12,2,0,0],[1,6,0,0],[0,2,0,0]]
+        self.grid = [
+                [1,1,1,0],
+                [1,1,1,1],
+                [1,1,1,1],
+                [1,1,1,1]
+                ]
+        self.replacement_stack = [1]
 
     def slide_board(self,slide_direction):
         slide_actions = {
@@ -247,19 +253,29 @@ class Board(object):
 
 
     def is_board_slideable_at_all(self):
-        """slides the board in all directions"""
-        """returns which directions the board can be slid in"""
-        pass
+        num_directions_slideable = 0
+        pre_is_board_slideable_at_all_grid = copy.deepcopy(self.grid)
+        for i in range(4):
+            pre_turn_slide_grid = copy.deepcopy(self.grid)
+            if self.is_board_squishable():
+                num_directions_slideable += 1
+            self.grid = copy.deepcopy(pre_turn_slide_grid)
+            self.rotate_clockwise()
+        self.grid = copy.deepcopy(pre_is_board_slideable_at_all_grid)
+        print "number of slideable directions: ", num_directions_slideable
+        return num_directions_slideable != 0
         
 
 
 def main():
     my_board = Board()
-    my_board.new_set_board()
+    #my_board.new_set_board()
     my_board.display()
     direction = ''
     while direction != 'q':
-        """can_you_even_slide_bro?"""
+        if not my_board.is_board_slideable_at_all():
+            print "Game Over"
+            break
         direction = raw_input(">>>(a,s,d,w,q)>>>")
         my_board.slide_board(direction)
         if direction != 'q':

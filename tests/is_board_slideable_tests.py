@@ -8,32 +8,21 @@ def setup():
 def teardown():
     print "TEAR DOWN!"
 
-def test_slide_left():
+def test_is_board_slideable():
     board.replacement_stack = [2]
     board.grid = [
-            [0,2,2,2],
-            [2,2,2,2],
-            [2,2,2,2],
-            [2,2,2,2]
-            ]
-
-    slid_board = [
             [2,2,2,2],
             [2,2,2,2],
             [2,2,2,2],
             [2,2,2,2]
             ]
-    
-    lose_output = "You Lose"
-
-    board.slide_left()
-    #assert_equal(board.grid, slid_board)
-
-    board.slide_left()
-    assert_equal(buffer, lose_output)
 
 
-for i in range(100):
-    setup()
-    test_slide_left()
-    teardown()
+
+    is_board_slideable_output = board.is_board_slideable_at_all()
+    assert_equal(is_board_slideable_output, False)
+
+
+setup()
+test_is_board_slideable()
+teardown()
