@@ -254,14 +254,14 @@ class Board(object):
 
     def is_board_slideable_at_all(self):
         num_directions_slideable = 0
-        pre_is_board_slideable_at_all_grid = copy.deepcopy(self.grid)
+        #pre_is_board_slideable_at_all_grid = copy.deepcopy(self.grid)
         for i in range(4):
             pre_turn_slide_grid = copy.deepcopy(self.grid)
             if self.is_board_squishable():
                 num_directions_slideable += 1
             self.grid = copy.deepcopy(pre_turn_slide_grid)
             self.rotate_clockwise()
-        self.grid = copy.deepcopy(pre_is_board_slideable_at_all_grid)
+        #self.grid = copy.deepcopy(pre_is_board_slideable_at_all_grid)
         print "number of slideable directions: ", num_directions_slideable
         return num_directions_slideable != 0
         
