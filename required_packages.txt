@@ -1,0 +1,5 @@
+boost c++ library compiled and installed in a linux environment
+
+opencv2.0+ installed with python bindings in order to have visualization of the neural networks.  
+
+after all prereqs are met, enter the MultiNEAT source directory and run "sudo python setup.py install" , this will compile and install the multiNEAT library
