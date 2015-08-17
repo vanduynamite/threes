@@ -42,12 +42,8 @@ class Board(object):
     def choose_placement_for_queued_cards(self):
         placeholder_locations = self.find_rows_needing_replacement()
         card_insert_locations = []
-        #print "card insert location in choose placement is: ", card_insert_locations
-        #print "placeholder_locations in  choose placement is: ", placeholder_locations
         for i in range(self.replacement_stage_size):
             card_insert_locations.append(random.choice(placeholder_locations))
-        #print "card insert location in choose placement after loop is: ", card_insert_locations
-        #print "placeholder_locations in  choose placement after loop is: ", placeholder_locations
         return card_insert_locations
 
     def place_queued_cards(self):
@@ -262,7 +258,7 @@ class Board(object):
             self.grid = copy.deepcopy(pre_turn_slide_grid)
             self.rotate_clockwise()
         #self.grid = copy.deepcopy(pre_is_board_slideable_at_all_grid)
-        print "number of slideable directions: ", num_directions_slideable
+        #print "number of slideable directions: ", num_directions_slideable
         return num_directions_slideable != 0
         
 
